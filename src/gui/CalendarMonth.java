@@ -8,7 +8,11 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 
-public class CalendarMonth{
+import logic.ActionController;
+
+public class CalendarMonth extends JPanel{
+	public CalendarMonth() {
+	}
     static JLabel lblMonth, lblYear;
     static JButton btnPrev, btnNext;
     static JTable tblCalendar;
@@ -20,7 +24,9 @@ public class CalendarMonth{
     static JPanel pnlCalendar;
     static int realYear, realMonth, realDay, currentYear, currentMonth;
     
-    public static void main (String args[]){
+ 
+
+	public static void main (String args[]){
         //Look and feel
         try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
         catch (ClassNotFoundException e) {}
