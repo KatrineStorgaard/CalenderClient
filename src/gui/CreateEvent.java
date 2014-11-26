@@ -18,7 +18,7 @@ public class CreateEvent extends JPanel{
 	private JTextField textLocation;
 	private JTextField textDescription;
 	private JTextField textStart;
-	private JTextField textStop;
+	private JTextField textEnd;
 	
 	public static final String CREATEEVENTSUBMIT  = "createEventSubmit";
 	
@@ -76,18 +76,18 @@ public class CreateEvent extends JPanel{
 		add(textStart);
 		textStart.setColumns(10);
 		
-		textStop = new JTextField();
-		textStop.setBounds(290, 180, 61, 28);
-		add(textStop);
-		textStop.setColumns(10);
+		textEnd = new JTextField();
+		textEnd.setBounds(290, 180, 61, 28);
+		add(textEnd);
+		textEnd.setColumns(10);
 		
 		JLabel lblStart = new JLabel("Start");
 		lblStart.setBounds(124, 186, 29, 16);
 		add(lblStart);
 		
-		JLabel lblStop = new JLabel("Stop");
-		lblStop.setBounds(250, 186, 28, 16);
-		add(lblStop);
+		JLabel lblEnd = new JLabel("End");
+		lblEnd.setBounds(250, 186, 28, 16);
+		add(lblEnd);
 	}
 	public JTextField getTextTitle(){
 		return  textTitle;	
@@ -97,14 +97,14 @@ public class CreateEvent extends JPanel{
 		return  textLocation;	
 	}
 	
-	public JTextField getTextDecription(){
+	public JTextField getTextDescription(){
 		return  textDescription;
 	}
 	public JTextField getTextStart(){
 		return  textStart;
 	}
-	public JTextField getTextStop(){
-		return  textStop;
+	public JTextField getTextEnd(){
+		return  textEnd;
 		
 	}
 }

@@ -46,13 +46,13 @@ public class _Screen extends JFrame {
 
 		//instances of the JPanels 
 		createEvent = new CreateEvent(actionController);
-		//login = new Login(actionController);
+		login = new Login(actionController);
 		//calendarWeek = new CalendarWeek(actionController, contentPane);
 
 		//adding JPanels to the contentPane
-		contentPane.add(createEvent, CREATEEVENT);
+		//contentPane.add(createEvent, CREATEEVENT);
 		//contentPane.add(calendarWeek, CALENDARWEEK);
-		//contentPane.add(login, LOGIN);
+		contentPane.add(login, LOGIN);
 		
 		
 

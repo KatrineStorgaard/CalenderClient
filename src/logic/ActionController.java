@@ -1,13 +1,16 @@
 package logic;
 
+import gui.CreateEvent;
 import gui.Login;
 import gui._Screen;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Timestamp;
 
 import javax.swing.JOptionPane;
 
+import shared.Events;
 import shared.Users;
 
 public class ActionController implements ActionListener {
@@ -51,6 +54,16 @@ public class ActionController implements ActionListener {
 										"Your user is inactive");
 							}// end else
 						}// end if
+//				if (cmd.equals(CreateEvent.CREATEEVENTSUBMIT)){
+//					String title = screen.getCreateEvent().getTextTitle().getText();
+//					String location = screen.getCreateEvent().getTextLocation().getText();
+//					String description = screen.getCreateEvent().getTextDescription().getText();
+//					int startTimestamp = screen.getCreateEvent().getTextStart().getText();
+//					int endTimestamp = screen.getCreateEvent().getTextEnd().getText();
+//					System.out.println(title + location + description + startTimestamp+ endTimestamp);
+//					
+//					Events ec = co.createEvent(description, startTimestamp, endTimestamp, location, title);
+//				}
 
 	}// end actionPerformed
 }// end ActionController class
