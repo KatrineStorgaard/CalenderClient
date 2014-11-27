@@ -11,15 +11,17 @@ public class TCPClient {
 	
 	private Socket clientSocket;
 	private DataOutputStream outToServer;
+	private String hej = "FEJLLL!L!";
 	
-	public void connect(String gsonString) {
+	public String connect(String gsonString) {
 	
 		try {
 			Socket clientSocket = new Socket("localhost", 8888);
 			DataOutputStream outToServer = new DataOutputStream(
 					clientSocket.getOutputStream());
 			byte[] input = gsonString.getBytes();
-			byte key = (byte) Double.parseDouble("3.1470");
+//			byte key = (byte) Double.parseDouble("3.1470");
+			byte key = (byte) 3.1470;
 			byte[] encrypted = input;
 			for (int i = 0; i < encrypted.length; i++)
 				encrypted[i] = (byte) (encrypted[i] ^ key);
@@ -32,8 +34,10 @@ public class TCPClient {
 			
 			System.out.println("response: " + modifiedSentence);
 			clientSocket.close();
+			return modifiedSentence;
 		} catch (IOException e){
 			e.printStackTrace();
+			return hej;
 			
 		}
 		

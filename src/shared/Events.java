@@ -10,8 +10,8 @@ public class Events implements Serializable {
     private String description;
     private String title;
     private String location;
-    private int startTimestamp;
-    private int endTimestamp;
+    private Timestamp startTimestamp;
+    private Timestamp endTimestamp;
     private boolean active;
     
 	public String getOverallID() {
@@ -38,16 +38,16 @@ public class Events implements Serializable {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	public int getStartTimestamp() {
+	public String getStartTimestamp() {
 		return startTimestamp;
 	}
-	public void setStartTimestamp(int startTimestamp) {
+	public void setStartTimestamp(String startTimestamp) {
 		this.startTimestamp = startTimestamp;
 	}
-	public int getEndTimestamp() {
+	public String getEndTimestamp() {
 		return endTimestamp;
 	}
-	public void setEndTimestamp(int endTimestamp) {
+	public void setEndTimestamp(String endTimestamp) {
 		this.endTimestamp = endTimestamp;
 	}
 	public boolean isActive() {

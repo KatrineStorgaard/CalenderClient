@@ -18,16 +18,18 @@ public class ObjectTranslator {
 		
 	}
 
-	public void checklog(String username, String password) {
-		users.setUserName(username);
+	public String checklog(String email, String password) {
+		users.setEmail(email);
 		users.setPassword(password);
 		users.setActive(true);
 		users.setOverallID("logIn");
 		String gsonString = gson.toJson(users);
-		tcpClient.connect(gsonString);		
+		System.out.println(gsonString);
+		
+		return tcpClient.connect(gsonString);		
 	}
 	
-	public void createEvent(String description, int startTimestamp, int endTimestamp, String location, String title ){
+	public void createEvent(String description, String startTimestamp, String endTimestamp, String location, String title ){
 		events.setDescription(description);
 		events.setStartTimestamp(startTimestamp);
 		events.setEndTimestamp(endTimestamp);

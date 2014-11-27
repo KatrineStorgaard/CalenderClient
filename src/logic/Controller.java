@@ -18,15 +18,13 @@ public class Controller {
 		
 	}
 	
-	public Users checklog(String username, String password) {
+	public String checklog(String email, String password) {
 	
-		ot.checklog(username, password);
-		
-	
-		return currentUser;
+		return ot.checklog(email, password);
+			
 	}
 	
-	public Events createEvent(String description, int startTimestamp, int endTimestamp, String location, String title){
+	public Events createEvent(String description, String startTimestamp, String endTimestamp, String location, String title){
 		
 		ot.createEvent(description, startTimestamp, endTimestamp, location, title);
 		

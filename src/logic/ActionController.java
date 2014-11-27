@@ -38,32 +38,32 @@ public class ActionController implements ActionListener {
 		// if the action command is LOGINSUBMIT
 				if (cmd.equals(Login.LOGINSUBMIT)) {
 					// takes the info from the txtfields
-					String username = screen.getLogin().getTxtremail().getText();
+					String email = screen.getLogin().getTxtremail().getText();
 					String password = screen.getLogin().getPasswordField().getText();
 					// parses username and password to the method login
-					System.out.println(username + password);
-					Users currentUser = co.checklog(username, password);
+					System.out.println(email + password);
+					String answer = co.checklog(email, password);
 
 					// if the entered info is validated
-					if (currentUser != null) {
-						
+					if (answer.equalsIgnoreCase("Login Successful")) {
+						System.out.println("DU ER LOGGET INDDNDNDN");
 							}// end if
 								// if user status is false
 							else {
 								JOptionPane.showMessageDialog(screen,
-										"Your user is inactive");
+										"Something went wrong");
 							}// end else
 						}// end if
-//				if (cmd.equals(CreateEvent.CREATEEVENTSUBMIT)){
-//					String title = screen.getCreateEvent().getTextTitle().getText();
-//					String location = screen.getCreateEvent().getTextLocation().getText();
-//					String description = screen.getCreateEvent().getTextDescription().getText();
-//					int startTimestamp = screen.getCreateEvent().getTextStart().getText();
-//					int endTimestamp = screen.getCreateEvent().getTextEnd().getText();
-//					System.out.println(title + location + description + startTimestamp+ endTimestamp);
-//					
-//					Events ec = co.createEvent(description, startTimestamp, endTimestamp, location, title);
-//				}
+				if (cmd.equals(CreateEvent.CREATEEVENTSUBMIT)){
+					String title = screen.getCreateEvent().getTextTitle().getText();
+					String location = screen.getCreateEvent().getTextLocation().getText();
+					String description = screen.getCreateEvent().getTextDescription().getText();
+					String startTimestamp = screen.getCreateEvent().getTextStart().getText();
+					String endTimestamp = screen.getCreateEvent().getTextEnd().getText();
+					System.out.println(title + location + description + startTimestamp+ endTimestamp);
+					
+					Events ec = co.createEvent(description, startTimestamp, endTimestamp, location, title);
+				}
 
 	}// end actionPerformed
 }// end ActionController class

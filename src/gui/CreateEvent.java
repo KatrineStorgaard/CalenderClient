@@ -101,7 +101,7 @@ public class CreateEvent extends JPanel{
 		return  textDescription;
 	}
 	public JTextField getTextStart(){
-		return  textStart;
+		return textStart;
 	}
 	public JTextField getTextEnd(){
 		return  textEnd;

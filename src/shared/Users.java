@@ -5,18 +5,18 @@ import java.io.Serializable;
 public class Users implements Serializable{
 
 	//Declaration of attributes
-	private final long serialVersionUID = 3L;
-	private String userName;
+	private final long serialVersionUID = 2L;
+	private String email;
 	private String password;
 	private boolean active;
 	private String overallID;
 	
 	
-	public String getUserName() {
-		return userName;
+	public String getEmail() {
+		return email;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public String getPassword() {
 		return password;
@@ -36,6 +36,5 @@ public class Users implements Serializable{
 	public void setOverallID(String overallID) {
 		this.overallID = overallID;
 	}
-
 	
 }
