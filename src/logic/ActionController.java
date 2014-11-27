@@ -1,5 +1,6 @@
 package logic;
 
+import gui.CalendarWeek;
 import gui.CreateEvent;
 import gui.Login;
 import gui._Screen;
@@ -54,17 +55,25 @@ public class ActionController implements ActionListener {
 										"Something went wrong");
 							}// end else
 						}// end if
-				if (cmd.equals(CreateEvent.CREATEEVENTSUBMIT)){
-					String title = screen.getCreateEvent().getTextTitle().getText();
-					String location = screen.getCreateEvent().getTextLocation().getText();
-					String description = screen.getCreateEvent().getTextDescription().getText();
-					String startTimestamp = screen.getCreateEvent().getTextStart().getText();
-					String endTimestamp = screen.getCreateEvent().getTextEnd().getText();
-					System.out.println(title + location + description + startTimestamp+ endTimestamp);
+//				if (cmd.equals(CreateEvent.CREATEEVENTSUBMIT)){
+//					String title = screen.getCreateEvent().getTextTitle().getText();
+//					String location = screen.getCreateEvent().getTextLocation().getText();
+//					String description = screen.getCreateEvent().getTextDescription().getText();
+//					String startTimestamp = screen.getCreateEvent().getTextStart().getText();
+//					String endTimestamp = screen.getCreateEvent().getTextEnd().getText();
+//					System.out.println(title + location + description + startTimestamp+ endTimestamp);
+//					
+//					Events ec = co.createEvent(description, startTimestamp, endTimestamp, location, title);
+//				}
+				
+				else if(cmd.equals(CalendarWeek.PREVIOUS)){
 					
-					Events ec = co.createEvent(description, startTimestamp, endTimestamp, location, title);
+					screen.getCalendarWeek().refreshDate(-1);
 				}
-
+				
+				else if(cmd.equals(CalendarWeek.NEXT)){
+					screen.getCalendarWeek().refreshDate(+1);
+				}
 	}// end actionPerformed
 }// end ActionController class
 	

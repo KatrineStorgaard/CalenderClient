@@ -47,11 +47,11 @@ public class _Screen extends JFrame {
 		//instances of the JPanels 
 		createEvent = new CreateEvent(actionController);
 		login = new Login(actionController);
-		//calendarWeek = new CalendarWeek(actionController, contentPane);
+		calendarWeek = new CalendarWeek(actionController);
 
 		//adding JPanels to the contentPane
 		//contentPane.add(createEvent, CREATEEVENT);
-		//contentPane.add(calendarWeek, CALENDARWEEK);
+		contentPane.add(calendarWeek, CALENDARWEEK);
 		contentPane.add(login, LOGIN);
 		
 		
@@ -79,7 +79,7 @@ public class _Screen extends JFrame {
 		return login;
 	}
 
-	public CalendarWeek getCalenderWeek(){
+	public CalendarWeek getCalendarWeek(){
 		return calendarWeek;
 	}
 
