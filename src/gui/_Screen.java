@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import org.slf4j.impl.StaticLoggerBinder;
+
 import logic.ActionController;
 
 
@@ -26,11 +28,13 @@ public class _Screen extends JFrame {
 	private CardLayout c;
 	private CalendarWeek calendarWeek;
 	private CreateEvent createEvent;
+	private CreateNote createNote;
 
 	// Declaration of constants
 	public static final String LOGIN = "login";
 	public static final String CALENDARWEEK ="calendarWeek";
 	public static final String CREATEEVENT = "createEvent";
+	public static final String CREATENOTE = "createNote";
 
 	// no-argument constructor
 	public _Screen()
@@ -48,11 +52,14 @@ public class _Screen extends JFrame {
 		createEvent = new CreateEvent(actionController);
 		login = new Login(actionController);
 		calendarWeek = new CalendarWeek(actionController);
+		createNote = new CreateNote(actionController);
 
 		//adding JPanels to the contentPane
-		//contentPane.add(createEvent, CREATEEVENT);
-		contentPane.add(calendarWeek, CALENDARWEEK);
-		contentPane.add(login, LOGIN);
+//		contentPane.add(login, LOGIN);
+		contentPane.add(createNote, CREATENOTE);
+//		contentPane.add(createEvent, CREATEEVENT);
+//		contentPane.add(calendarWeek, CALENDARWEEK);
+		
 		
 		
 
@@ -86,6 +93,10 @@ public class _Screen extends JFrame {
 	public CreateEvent getCreateEvent(){
 		return createEvent;
 		
+	}
+	
+	public CreateNote getCreateNote(){
+		return createNote;
 	}
 
 }// end class _Screen

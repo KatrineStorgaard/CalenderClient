@@ -38,16 +38,16 @@ public class Events implements Serializable {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	public String getStartTimestamp() {
+	public Timestamp getStartTimestamp() {
 		return startTimestamp;
 	}
-	public void setStartTimestamp(String startTimestamp) {
+	public void setStartTimestamp(Timestamp startTimestamp) {
 		this.startTimestamp = startTimestamp;
 	}
-	public String getEndTimestamp() {
+	public Timestamp getEndTimestamp() {
 		return endTimestamp;
 	}
-	public void setEndTimestamp(String endTimestamp) {
+	public void setEndTimestamp(Timestamp endTimestamp) {
 		this.endTimestamp = endTimestamp;
 	}
 	public boolean isActive() {

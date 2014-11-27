@@ -26,10 +26,9 @@ public class Controller {
 			
 	}
 	
-	public Events createEvent(String description, String startTimestamp, String endTimestamp, String location, String title){
+	public Events createEvent(String description, Timestamp startTimestamp, Timestamp endTimestamp, String location, String title){
 		
 		ot.createEvent(description, startTimestamp, endTimestamp, location, title);
-		
 		return ec;
 	}
 

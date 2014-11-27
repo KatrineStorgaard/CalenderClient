@@ -29,7 +29,7 @@ public class ObjectTranslator {
 		return tcpClient.connect(gsonString);		
 	}
 	
-	public void createEvent(String description, String startTimestamp, String endTimestamp, String location, String title ){
+	public void createEvent(String description, Timestamp startTimestamp, Timestamp endTimestamp, String location, String title ){
 		events.setDescription(description);
 		events.setStartTimestamp(startTimestamp);
 		events.setEndTimestamp(endTimestamp);

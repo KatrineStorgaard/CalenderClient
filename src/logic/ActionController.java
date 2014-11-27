@@ -59,8 +59,8 @@ public class ActionController implements ActionListener {
 //					String title = screen.getCreateEvent().getTextTitle().getText();
 //					String location = screen.getCreateEvent().getTextLocation().getText();
 //					String description = screen.getCreateEvent().getTextDescription().getText();
-//					String startTimestamp = screen.getCreateEvent().getTextStart().getText();
-//					String endTimestamp = screen.getCreateEvent().getTextEnd().getText();
+//					String sT = screen.getCreateEvent().getTextStart().getText();
+//					String eT = screen.getCreateEvent().getTextEnd().getText();
 //					System.out.println(title + location + description + startTimestamp+ endTimestamp);
 //					
 //					Events ec = co.createEvent(description, startTimestamp, endTimestamp, location, title);
