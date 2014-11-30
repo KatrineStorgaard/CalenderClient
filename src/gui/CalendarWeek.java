@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import shared.ServerConnection;
 import logic.ActionController;
 
 public class CalendarWeek extends JPanel{
@@ -41,6 +42,8 @@ public class CalendarWeek extends JPanel{
 	//Declaration of panel constants
 	public static final String PREVIOUS = "Previous";
 	public static final String NEXT = "Next";
+	public static final String QUOTE ="Quote";
+	private JButton btnQuote;
 	
 
 	
@@ -48,7 +51,7 @@ public class CalendarWeek extends JPanel{
     {
 
 		this.actionController = actionController;
-		
+		ServerConnection sc = new ServerConnection();
 //		cal.set(GregorianCalendar.DAY_OF_WEEK, cal.getFirstDayOfWeek());
 		
 		START_WEEK = cal.get(GregorianCalendar.WEEK_OF_YEAR);
@@ -110,6 +113,11 @@ public class CalendarWeek extends JPanel{
         p3.add(forward);
         //adding panel3
         add(p3, BorderLayout.SOUTH);
+        
+        btnQuote = new JButton("Quote");
+        p3.add(btnQuote);
+        btnQuote.addActionListener(actionController);
+        btnQuote.setActionCommand(QUOTE);
         
         
         
@@ -221,24 +229,24 @@ public class CalendarWeek extends JPanel{
     
     public void refreshDate(int newWeek){
     	
-    	int nextWeek = START_WEEK += newWeek;
+//    	int nextWeek = START_WEEK += newWeek;
     	
     	START_WEEK =  START_WEEK + newWeek;
     	displayDate2(START_WEEK,START_YEAR);
     	
-    	if(START_WEEK < 53){
+//    	if(START_WEEK < 53){
     		
-    	displayDate2(START_WEEK += newWeek,START_YEAR);
-    	}
-    	else{
-    		START_WEEK = 1;
-    		displayDate2(START_WEEK,START_YEAR);
-    	}
+//    	displayDate2(START_WEEK += newWeek,START_YEAR);
+//    	}
+//    	else{
+//    		START_WEEK = 1;
+//    		displayDate2(START_WEEK,START_YEAR);
+//    	}
     	String stringNextWeek = String.valueOf(START_WEEK);
     	
     	uge.setText(stringNextWeek);
     
-    	nextWeek = START_WEEK -= newWeek;
+//    	nextWeek = START_WEEK -= newWeek;
     	
     }
     

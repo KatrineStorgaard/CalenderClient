@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 import javax.swing.JOptionPane;
 
 import shared.Events;
+import shared.ServerConnection;
 import shared.Users;
 
 public class ActionController implements ActionListener {
@@ -19,12 +20,15 @@ public class ActionController implements ActionListener {
 	//Declaration of attributes
 	private _Screen screen;
 	private Controller co;
-
+	
+	
+	ServerConnection sc = new ServerConnection();
 	// constructor
 	public ActionController(_Screen screen) {
 
 		this.screen = screen;
 		this.co = new Controller();
+		
 
 	}// end constructor
 
@@ -47,7 +51,7 @@ public class ActionController implements ActionListener {
 
 					// if the entered info is validated
 					if (answer.equalsIgnoreCase("Login Successful")) {
-						System.out.println("DU ER LOGGET INDDNDNDN");
+						screen.show(screen.CALENDARWEEK);
 							}// end if
 								// if user status is false
 							else {
@@ -73,6 +77,11 @@ public class ActionController implements ActionListener {
 				
 				else if(cmd.equals(CalendarWeek.NEXT)){
 					screen.getCalendarWeek().refreshDate(+1);
+				}
+				
+				else if(cmd.equals(CalendarWeek.QUOTE))
+				{
+					JOptionPane.showMessageDialog( screen, sc.connect("getQuote"));
 				}
 	}// end actionPerformed
 }// end ActionController class

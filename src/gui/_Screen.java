@@ -55,10 +55,10 @@ public class _Screen extends JFrame {
 		createNote = new CreateNote(actionController);
 
 		//adding JPanels to the contentPane
-//		contentPane.add(login, LOGIN);
-		contentPane.add(createNote, CREATENOTE);
+		contentPane.add(login, LOGIN);
+		//contentPane.add(createNote, CREATENOTE);
 //		contentPane.add(createEvent, CREATEEVENT);
-//		contentPane.add(calendarWeek, CALENDARWEEK);
+		contentPane.add(calendarWeek, CALENDARWEEK);
 		
 		
 		

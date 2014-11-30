@@ -12,7 +12,7 @@ public class ObjectTranslator {
 	Users users  = new Users();
 	Events events = new Events();
 	Gson gson = new GsonBuilder().create();
-	TCPClient tcpClient = new TCPClient();
+	ServerConnection sc = new ServerConnection();
 	
 	public ObjectTranslator() {
 		
@@ -21,12 +21,12 @@ public class ObjectTranslator {
 	public String checklog(String email, String password) {
 		users.setEmail(email);
 		users.setPassword(password);
-		users.setActive(true);
+		//users.setActive(true);
 		users.setOverallID("logIn");
 		String gsonString = gson.toJson(users);
 		System.out.println(gsonString);
 		
-		return tcpClient.connect(gsonString);		
+		return sc.connect(gsonString);		
 	}
 	
 	public void createEvent(String description, Timestamp startTimestamp, Timestamp endTimestamp, String location, String title ){
@@ -38,7 +38,7 @@ public class ObjectTranslator {
 		events.setActive(true);
 		events.setOverallID("createEvent");
 		String gsonString = gson.toJson(events);
-		tcpClient.connect(gsonString);
+		sc.connect(gsonString);
 	}
 	
 
