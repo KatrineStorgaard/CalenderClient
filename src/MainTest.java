@@ -13,7 +13,7 @@ public class MainTest {
 	  
 	  ServerConnection sc = new ServerConnection();
 	  
-	  sc.connect("getEvents");
+	  //sc.connect("getEvents");
 	 // sc.connect("getForecast");
 	 // sc.connect("getQuote");
 	  

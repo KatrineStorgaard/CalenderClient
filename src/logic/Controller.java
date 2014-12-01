@@ -20,17 +20,17 @@ public class Controller {
 		
 	}
 	
-	public String checklog(String email, String password) {
+	public String Login(String email, String password) throws Exception {
 	
-		return ot.checklog(email, password);
+		return ot.Login(email, password);
 			
 	}
 	
-	public Events createEvent(String description, Timestamp startTimestamp, Timestamp endTimestamp, String location, String title){
-		
-		ot.createEvent(description, startTimestamp, endTimestamp, location, title);
-		return ec;
-	}
+//	public Events createEvent(String description, Timestamp startTimestamp, Timestamp endTimestamp, String location, String title){
+//		
+//		ot.createEvent(description, startTimestamp, endTimestamp, location, title);
+//		return ec;
+//	}
 
 
 }

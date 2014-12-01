@@ -1,212 +1,111 @@
-package gui;
-
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.GregorianCalendar;
-
-import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-
-public class CalendarDay{
-    static JLabel lblMonth, lblYear;
-    static JButton btnPrev, btnNext;
-    static JTable tblCalendar;
-    static JComboBox cmbYear;
-    static JFrame frmMain;
-    static Container pane;
-    static DefaultTableModel mtblCalendar; //Table model
-    static JScrollPane stblCalendar; //The scrollpane
-    static JPanel pnlCalendar;
-    static int realYear, realMonth, realDay, currentYear, currentMonth;
-    
-    public static void main (String args[]){
-        //Look and feel
-        try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
-        catch (ClassNotFoundException e) {}
-        catch (InstantiationException e) {}
-        catch (IllegalAccessException e) {}
-        catch (UnsupportedLookAndFeelException e) {}
-        
-        //Create controls
-        lblMonth = new JLabel ("January");
-        lblYear = new JLabel ("Change week:");
-        cmbYear = new JComboBox();
-        btnPrev = new JButton ("Prev week");
-        btnNext = new JButton (" Next Week");
-        mtblCalendar = new DefaultTableModel(){public boolean isCellEditable(int rowIndex, int mColIndex){return false;}};
-        tblCalendar = new JTable(mtblCalendar);
-        stblCalendar = new JScrollPane(tblCalendar);
-        pnlCalendar = new JPanel(null);
-        
-        //Set border
-        pnlCalendar.setBorder(BorderFactory.createTitledBorder("Calendar"));
-        
-        //Register action listeners
-        btnPrev.addActionListener(new btnPrev_Action());
-        btnNext.addActionListener(new btnNext_Action());
-        cmbYear.addActionListener(new cmbYear_Action());
-        
-        //Add controls to pane
-        pane.add(pnlCalendar);
-        pnlCalendar.add(lblMonth);
-        pnlCalendar.add(lblYear);
-        pnlCalendar.add(cmbYear);
-        pnlCalendar.add(btnPrev);
-        pnlCalendar.add(btnNext);
-        pnlCalendar.add(stblCalendar);
-        
-        //Set bounds
-        pnlCalendar.setBounds(0, 0, 320, 335);
-        lblMonth.setBounds(160-lblMonth.getPreferredSize().width/2, 25, 100, 25);
-        lblYear.setBounds(10, 305, 93, 20);
-        cmbYear.setBounds(204, 305, 106, 20);
-        btnPrev.setBounds(10, 25, 106, 25);
-        btnNext.setBounds(204, 25, 106, 25);
-        stblCalendar.setBounds(10, 50, 300, 250);
-        
-        //Make frame visible
-        frmMain.setResizable(false);
-        frmMain.setVisible(true);
-        
-        //Get real month/year
-        GregorianCalendar cal = new GregorianCalendar(); //Create calendar
-        realDay = cal.get(GregorianCalendar.DAY_OF_MONTH); //Get day
-        realMonth = cal.get(GregorianCalendar.MONTH); //Get month
-        realYear = cal.get(GregorianCalendar.YEAR); //Get year
-        currentMonth = realMonth; //Match month and year
-        currentYear = realYear;
-        
-        //Add headers
-        String[] headers = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"}; //All headers
-        for (int i=0; i<7; i++){
-            mtblCalendar.addColumn(headers[i]);
-        }
-        
-        tblCalendar.getParent().setBackground(tblCalendar.getBackground()); //Set background
-        
-        //No resize/reorder
-        tblCalendar.getTableHeader().setResizingAllowed(false);
-        tblCalendar.getTableHeader().setReorderingAllowed(false);
-        
-        //Single cell selection
-        tblCalendar.setColumnSelectionAllowed(true);
-        tblCalendar.setRowSelectionAllowed(true);
-        tblCalendar.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        
-        //Set row/column count
-        tblCalendar.setRowHeight(38);
-        
-        JButton btnWeek = new JButton("Week");
-        btnWeek.setBounds(10, 347, 117, 29);
-        frmMain.getContentPane().add(btnWeek);
-        
-        JButton btnDay = new JButton("Day");
-        btnDay.setBounds(203, 347, 117, 29);
-        frmMain.getContentPane().add(btnDay);
-        mtblCalendar.setColumnCount(7);
-        mtblCalendar.setRowCount(6);
-        
-        //Populate table
-        for (int i=realYear-100; i<=realYear+100; i++){
-            cmbYear.addItem(String.valueOf(i));
-        }
-        
-        //Refresh calendar
-        refreshCalendar (realMonth, realYear); //Refresh calendar
-    }
-    
-    public static void refreshCalendar(int month, int year){
-        //Variables
-        String[] months =  {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-        int nod, som; //Number Of Days, Start Of Month
-        
-        //Allow/disallow buttons
-        btnPrev.setEnabled(true);
-        btnNext.setEnabled(true);
-        if (month == 0 && year <= realYear-10){btnPrev.setEnabled(false);} //Too early
-        if (month == 11 && year >= realYear+100){btnNext.setEnabled(false);} //Too late
-        lblMonth.setText(months[month]); //Refresh the month label (at the top)
-        lblMonth.setBounds(160-lblMonth.getPreferredSize().width/2, 25, 180, 25); //Re-align label with calendar
-        cmbYear.setSelectedItem(String.valueOf(year)); //Select the correct year in the combo box
-        
-        //Clear table
-        for (int i=0; i<6; i++){
-            for (int j=0; j<7; j++){
-                mtblCalendar.setValueAt(null, i, j);
-            }
-        }
-        
-        //Get first day of month and number of days
-        GregorianCalendar cal = new GregorianCalendar(year, month, 0);
-		nod = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
-        som = cal.get(GregorianCalendar.DAY_OF_WEEK);
-        
-        //Draw calendar
-        for (int i=1; i<=nod; i++){
-            int row = new Integer((i+som-2)/7);
-            int column  =  (i+som-2)%7;
-            mtblCalendar.setValueAt(i, row, column);
-        }
-        
-        //Apply renderers
-        tblCalendar.setDefaultRenderer(tblCalendar.getColumnClass(0), new tblCalendarRenderer());
-    }
-    
-    static class tblCalendarRenderer extends DefaultTableCellRenderer{
-        public Component getTableCellRendererComponent (JTable table, Object value, boolean selected, boolean focused, int row, int column){
-            super.getTableCellRendererComponent(table, value, selected, focused, row, column);
-            if (column == 5 || column == 6){ //Week-end
-                setBackground(new Color(255, 220, 220));
-            }
-            else{ //Week
-                setBackground(new Color(255, 255, 255));
-            }
-            if (value != null){
-                if (Integer.parseInt(value.toString()) == realDay && currentMonth == realMonth && currentYear == realYear){ //Today
-                    setBackground(new Color(220, 220, 255));
-                }
-            }
-            setBorder(null);
-            setForeground(Color.black);
-            return this;
-        }
-    }
-    
-    static class btnPrev_Action implements ActionListener{
-        public void actionPerformed (ActionEvent e){
-            if (currentMonth == 0){ //Back one year
-                currentMonth = 11;
-                currentYear -= 1;
-            }
-            else{ //Back one month
-                currentMonth -= 1;
-            }
-            refreshCalendar(currentMonth, currentYear);
-        }
-    }
-    static class btnNext_Action implements ActionListener{
-        public void actionPerformed (ActionEvent e){
-            if (currentMonth == 11){ //Foward one year
-                currentMonth = 0;
-                currentYear += 1;
-            }
-            else{ //Foward one month
-                currentMonth += 1;
-            }
-            refreshCalendar(currentMonth, currentYear);
-        }
-    }
-    static class cmbYear_Action implements ActionListener{
-        public void actionPerformed (ActionEvent e){
-            if (cmbYear.getSelectedItem() != null){
-                String b = cmbYear.getSelectedItem().toString();
-                currentYear = Integer.parseInt(b);
-                refreshCalendar(currentMonth, currentYear);
-            }
-        }
-    }
-}
+//package gui;
+//
+//import java.awt.BorderLayout;
+//import java.awt.Color;
+//import java.awt.Dimension;
+//import java.awt.FlowLayout;
+//import java.awt.GridLayout;
+//
+//import javax.swing.JButton;
+//import javax.swing.JLabel;
+//import javax.swing.JPanel;
+//import javax.swing.JScrollPane;
+//import javax.swing.JTable;
+//import javax.swing.border.BevelBorder;
+//import javax.swing.border.CompoundBorder;
+//import javax.swing.border.MatteBorder;
+//
+//import logic.ActionController;
+//
+//public class CalendarDay extends JPanel {
+//	
+//	private ActionController actionController;
+//	private JLabel title;
+//	private JButton back;
+//	private JScrollPane scrollPane;
+//	private JTable resultTable;
+//	private JButton forecast;
+//	public static final String BACK = "Back";
+//	public static final String FORECAST = "foreCast"; 
+//	
+//	public CalendarDay (ActionController actionController){
+//		
+//		setLayout(null);
+//		
+//		title = new JLabel("Label");
+//		title.setBounds(168, 11, 139, 16);
+//		add(title);
+//		
+//		back = new JButton("Back");
+//		back.setBounds(168, 150, 75, 29);
+//		back.addActionListener(actionController);
+//		back.setActionCommand(BACK);
+//		add(back);
+//		
+//		forecast = new JButton("Forecast");
+//		forecast.setBounds(440, 94, 117, 29);
+//		forecast.addActionListener(actionController);
+//		forecast.setActionCommand(FORECAST);
+//		add(forecast);
+//		
+////		scrollPane = new JScrollPane();
+////		scrollPane.setBorder(new CompoundBorder(new BevelBorder(
+////				BevelBorder.LOWERED, new Color(0, 0, 205), new Color(255, 255,
+////						255), new Color(0, 0, 205), new Color(255, 255, 255)),
+////				new MatteBorder(1, 1, 1, 1, (Color) new Color(255, 255, 255))));
+////		scrollPane.setViewportBorder(new CompoundBorder(new BevelBorder(
+////				BevelBorder.LOWERED, new Color(0, 0, 205), new Color(255, 255,
+////						255), new Color(0, 0, 205), new Color(255, 255, 255)),
+////				null));
+////		scrollPane.setBounds(26, 30, 398, 120);
+////
+////		// Add the scroll pane to this panel.
+////		add(scrollPane);
+//		
+//	}
+//
+//	public void addTable(Object[][] data,String[] columnNames){
+//		
+//		if(resultTable!=null){
+//		this.remove(resultTable);
+//		this.remove(scrollPane);
+//		}
+//		 resultTable = new JTable(data, columnNames);
+//		 resultTable.setPreferredScrollableViewportSize(new Dimension(800,70));
+//		 resultTable.setFillsViewportHeight(true);
+//		 
+//		 scrollPane = new JScrollPane(resultTable);
+//		 scrollPane.setBounds(26, 30, 398, 120);
+//		 add(scrollPane);	
+//	}
+//	
+//	public void removeTable(){
+//		this.remove(resultTable);
+//		this.remove(scrollPane);
+//	}
+//	
+//	public JLabel getTitle() {
+//		return title;
+//	}
+//
+//	public void setTitle(JLabel title) {
+//		this.title = title;
+//	}
+//
+//	public JScrollPane getScrollPane() {
+//		return scrollPane;
+//	}
+//
+//	public void setScrollPane(JScrollPane scrollPane) {
+//		this.scrollPane = scrollPane;
+//	}
+//
+//	public JTable getResultTable() {
+//		return resultTable;
+//	}
+//
+//	public void setResultTable(JTable resultTable) {
+//		this.resultTable = resultTable;
+//	}
+//	
+//}

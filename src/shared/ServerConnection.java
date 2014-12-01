@@ -15,7 +15,7 @@ public class ServerConnection {
 	public String connect(String gsonString) {
 		
 		try {
-			clientSocket = new Socket("localhost", 8888);
+			clientSocket = new Socket("localhost", 7000);
 			outToServer = new DataOutputStream(
 					clientSocket.getOutputStream());
 			byte[] input = gsonString.getBytes();

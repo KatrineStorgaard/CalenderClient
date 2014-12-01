@@ -30,6 +30,7 @@ public class Login extends JPanel {
 	
 	//constructor
 	public Login(ActionController actionController){
+		setBackground(Color.PINK);
 		
 		this.actionController = actionController;
 		//sets absolutelayout
