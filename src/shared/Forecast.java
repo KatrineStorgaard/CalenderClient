@@ -28,4 +28,7 @@ public class Forecast implements Serializable{
 		this.desc = desc;
 	}
       
+	public String toString() {
+		return "Forecast{" + "date='" + date + '\'' + ", celsius='" + celsius + '\'' + ", desc='" + desc + '\'' + '}';
+	}
 }

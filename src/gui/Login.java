@@ -3,7 +3,6 @@ package gui;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -36,18 +35,18 @@ public class Login extends JPanel {
 		//sets absolutelayout
 		setLayout(null);
 		//sets the defined size
-		setSize(_Screen.WIDTH,_Screen.HEIGHT);
+		setSize(600,242);
 		
 		lblTop = new JLabel("Calendar");
-		lblTop.setBounds(160, 6, 98, 33);
+		lblTop.setBounds(502, 6, 98, 33);
 		add(lblTop);
 		
 		lblLogin = new JLabel("Login");
-		lblLogin.setBounds(104, 60, 58, 25);
+		lblLogin.setBounds(282, 60, 35, 16);
 		add(lblLogin);
 		
-		txtremail = new JTextField("Insert your CBS E-mail address");
-		txtremail.setBounds(8, 111, 250, 29);
+		txtremail = new JTextField("dafr13ab@student.cbs.dk");
+		txtremail.setBounds(175, 111, 250, 29);
 		add(txtremail);
 		
 		txtremail.addMouseListener(new MouseListener() {
@@ -68,8 +67,8 @@ public class Login extends JPanel {
 			}
 		});
 		
-		passwordField = new JPasswordField("Password");
-		passwordField.setBounds(8, 147, 250, 29);
+		passwordField = new JPasswordField("123456");
+		passwordField.setBounds(175, 147, 250, 29);
 		add(passwordField);
 		
 		passwordField.addMouseListener(new MouseListener(){
@@ -91,7 +90,7 @@ public class Login extends JPanel {
 		
 		
 		btnLogin = new JButton("Login");
-		btnLogin.setBounds(74, 217, 117, 29);
+		btnLogin.setBounds(241, 188, 117, 29);
 		add(btnLogin);
 		btnLogin.addActionListener(actionController);
 		btnLogin.setActionCommand(LOGINSUBMIT);
@@ -101,7 +100,7 @@ public class Login extends JPanel {
 		add(lblBTCLogo);
 		
 		lblCBSLogo = new JLabel("");
-		lblCBSLogo.setBounds(0,0,266,48);
+		lblCBSLogo.setBounds(0,0,600,48);
 		lblCBSLogo.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.BLACK));
 		add(lblCBSLogo);
 		

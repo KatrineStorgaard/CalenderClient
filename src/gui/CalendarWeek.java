@@ -2,15 +2,10 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -249,5 +244,13 @@ public class CalendarWeek extends JPanel{
 //    	nextWeek = START_WEEK -= newWeek;
     	
     }
+    public static String getMONTHDAYSEPARATOR() {
+		return MONTHDAYSEPARATOR;
+	}
+
+
+	public static void setMONTHDAYSEPARATOR(String mONTHDAYSEPARATOR) {
+		MONTHDAYSEPARATOR = mONTHDAYSEPARATOR;
+	}
     
 }

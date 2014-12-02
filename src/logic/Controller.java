@@ -1,9 +1,5 @@
 package logic;
 
-import gui.CalendarWeek;
-
-import java.sql.Timestamp;
-
 import shared.Events;
 import shared.ObjectTranslator;
 import shared.Users;

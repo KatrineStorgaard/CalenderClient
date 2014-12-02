@@ -13,6 +13,9 @@ public class Events implements Serializable {
     private Timestamp startTimestamp;
     private Timestamp endTimestamp;
     private boolean active;
+    private String eventid;
+    private int calendarId;
+    private int id;
     
 	public String getOverallID() {
 		return overallID;
@@ -55,6 +58,24 @@ public class Events implements Serializable {
 	}
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+	public String getEventid() {
+		return eventid;
+	}
+	public void setEventid(String eventid) {
+		this.eventid = eventid;
+	}
+	public int getCalendarId() {
+		return calendarId;
+	}
+	public void setCalendarId(int calendarId) {
+		this.calendarId = calendarId;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
  
     

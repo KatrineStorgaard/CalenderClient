@@ -1,15 +1,9 @@
 package gui;
 
 import java.awt.CardLayout;
-import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
-import org.slf4j.impl.StaticLoggerBinder;
-
 import logic.ActionController;
 
 
@@ -18,8 +12,8 @@ public class _Screen extends JFrame {
 
 
 	//Declaration of global style constants
-	public static final int WIDTH = 266;
-	public static final int HEIGHT = 400;
+	public static final int WIDTH = 600;
+	public static final int HEIGHT = 250;
 
 	//Declaration of attributes
 	private ActionController actionController;
@@ -27,15 +21,18 @@ public class _Screen extends JFrame {
 	private JPanel contentPane;
 	private CardLayout c;
 	private CalendarWeek calendarWeek;
+	private CalendarDay calendarDay;
 	private CreateEvent createEvent;
 	private CreateNote createNote;
 
 	// Declaration of constants
 	public static final String LOGIN = "login";
 	public static final String CALENDARWEEK ="calendarWeek";
+	public static final String CALENDARDAY = "calendarDay";
 	public static final String CREATEEVENT = "createEvent";
 	public static final String CREATENOTE = "createNote";
 
+	
 	// no-argument constructor
 	public _Screen()
 	{
@@ -49,16 +46,18 @@ public class _Screen extends JFrame {
 		c = (CardLayout) getContentPane().getLayout();
 
 		//instances of the JPanels 
-		createEvent = new CreateEvent(actionController);
 		login = new Login(actionController);
 		calendarWeek = new CalendarWeek(actionController);
+		calendarDay = new CalendarDay(actionController);
 		createNote = new CreateNote(actionController);
+		createEvent = new CreateEvent(actionController);		
 
 		//adding JPanels to the contentPane
 		contentPane.add(login, LOGIN);
-		//contentPane.add(createNote, CREATENOTE);
-//		contentPane.add(createEvent, CREATEEVENT);
 		contentPane.add(calendarWeek, CALENDARWEEK);
+		contentPane.add(createNote, CREATENOTE);
+		contentPane.add(createEvent, CREATEEVENT);
+		contentPane.add(calendarDay, CALENDARDAY);
 		
 		
 		
@@ -89,6 +88,10 @@ public class _Screen extends JFrame {
 	public CalendarWeek getCalendarWeek(){
 		return calendarWeek;
 	}
+	
+	public CalendarDay getCalendarDay(){
+		return calendarDay;
+	}
 
 	public CreateEvent getCreateEvent(){
 		return createEvent;
@@ -98,5 +101,7 @@ public class _Screen extends JFrame {
 	public CreateNote getCreateNote(){
 		return createNote;
 	}
+	
+	
 
 }// end class _Screen

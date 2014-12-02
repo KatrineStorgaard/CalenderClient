@@ -10,8 +10,15 @@ public class Users implements Serializable{
 	private String password;
 	private boolean active;
 	private String overallID;
+	private int userId;
 	
 	
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 	public String getEmail() {
 		return email;
 	}

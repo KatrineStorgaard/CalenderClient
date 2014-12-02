@@ -1,14 +1,11 @@
 package gui;
 
 import javax.swing.*;
-import javax.swing.event.*;
 import javax.swing.table.*;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
-
-import logic.ActionController;
 
 public class CalendarMonth extends JPanel{
 	public CalendarMonth() {

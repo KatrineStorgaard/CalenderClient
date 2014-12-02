@@ -1,7 +1,6 @@
 import javax.swing.JFrame;
 
 import shared.ServerConnection;
-import sun.rmi.transport.tcp.TCPChannel;
 import gui._Screen;
 
 public class MainTest {

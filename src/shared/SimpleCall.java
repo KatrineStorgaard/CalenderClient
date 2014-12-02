@@ -69,6 +69,13 @@ public void setYear(int year) {
 public long getSerialVersionUID() {
 	return serialVersionUID;
 }
+@Override
+public String toString() {
+	return "SimpleCall [serialVersionUID=" + serialVersionUID + ", overallID="
+			+ overallID + ", id=" + id + ", eventid=" + eventid + ", userId="
+			+ userId + ", date=" + date + ", day=" + day + ", month=" + month
+			+ ", year=" + year + "]";
+}
 
 
 	

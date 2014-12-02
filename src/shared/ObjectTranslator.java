@@ -1,15 +1,10 @@
 package shared;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.sql.Timestamp;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 public class ObjectTranslator {
 
-	Users currentUser  = new Users();
 	Events events = new Events();
 	Gson gson = new GsonBuilder().create();
 	ServerConnection sc = new ServerConnection();
@@ -27,16 +22,25 @@ public class ObjectTranslator {
 //	}
 	
 	public String Login(String email, String password) throws Exception {
-		
+		Users currentUser  = new Users();
 		System.out.println("login koerer");
 		currentUser.setEmail(email);
 		currentUser.setPassword(password);
 		//users.setActive(true);
-		//currentUser.setOverallID("logIn");
+		currentUser.setOverallID("logIn");
 		String gsonString = gson.toJson(currentUser);
 //		System.out.println(gsonString);
 		
 		return sc.connect(gsonString);		
+	}
+	
+	public String getEvents( int userId) throws Exception{
+		sim.setOverallID("getEvents");
+		sim.setUserId(userId);
+		System.out.println(sim.toString());
+		String gsonString = gson.toJson(sim);
+		
+		return sc.connect(gsonString);
 	}
 	
 	

@@ -4,7 +4,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
-import java.util.Scanner;
 
 
 public class ServerConnection {
@@ -13,14 +12,15 @@ public class ServerConnection {
 	private DataOutputStream outToServer;
 	
 	public String connect(String gsonString) {
+		Configurations cf = new Configurations();
 		
 		try {
-			clientSocket = new Socket("localhost", 7000);
+			clientSocket = new Socket("localhost", 8888);
 			outToServer = new DataOutputStream(
 					clientSocket.getOutputStream());
 			byte[] input = gsonString.getBytes();
-//			byte key = (byte) Double.parseDouble("3.1470");
-			byte key = (byte) 3.1470;
+			String plain2 = new String(input).trim();
+			byte key = (byte) Double.parseDouble(cf.getFfcryptkey());
 			byte[] encrypted = input;
 			for (int i = 0; i < encrypted.length; i++)
 				encrypted[i] = (byte) (encrypted[i] ^ key);
