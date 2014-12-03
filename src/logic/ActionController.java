@@ -4,6 +4,7 @@ import gui.CalendarDay;
 import gui.CalendarWeek;
 import gui.Login;
 import gui._Screen;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import shared.Events;
+import shared.Forecast;
 import shared.ObjectTranslator;
 import shared.ServerConnection;
 import shared.Users;
@@ -125,6 +127,16 @@ public class ActionController implements ActionListener {
 				else if(cmd.equals(CalendarWeek.QUOTE))
 				{
 					JOptionPane.showMessageDialog( screen, sc.connect("getQuote"));
+				}
+				
+				else if(cmd.equals(CalendarDay.FORECAST)){
+					
+					screen.getCalendarDay().removeTable();
+					screen.getCalendarDay().repaint();
+					
+					String result = ot.getForecact(selectedMonth+1, selectedDay);
+					Forecast fc = gson.fromJson(result, Forecast.class);
+					screen.getCalendarDay().getTitle().setText(fc.getCelsius());
 				}
 				
 				else {

@@ -44,6 +44,28 @@ public class ObjectTranslator {
 		return sc.connect(gsonString);
 	}
 	
+	public String getForecact(int month, int day){
+		
+		sim.setOverallID("getForecast");
+		sim.setYear(2014);
+		sim.setMonth(month);
+		sim.setDay(day);
+		
+		String gsonString = gson.toJson(sim);
+		
+		return sc.connect(gsonString);
+	}
+	
+	public String getNote(int id){
+		
+		sim.setOverallID("getNote");
+		sim.setId(id);
+		
+		String gsonString = gson.toJson(sim);
+		
+		return sc.connect(gsonString);
+	}
+	
 	
 //	public void createEvent(String description, Timestamp startTimestamp, Timestamp endTimestamp, String location, String title ){
 //		events.setDescription(description);
