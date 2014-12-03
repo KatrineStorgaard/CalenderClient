@@ -9,7 +9,7 @@ public class Users implements Serializable{
 	private String email;
 	private String password;
 	private boolean active;
-	private String overallID;
+	private String overallID = "logIn";
 	private int userId;
 	
 	

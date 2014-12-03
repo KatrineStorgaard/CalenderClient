@@ -9,6 +9,8 @@ public class ObjectTranslator {
 	Gson gson = new GsonBuilder().create();
 	ServerConnection sc = new ServerConnection();
 	SimpleCall sim = new SimpleCall();
+	Users currentUser  = new Users();
+
 
 //	public String checklog(String email, String password) {
 //		users.setEmail(email);
@@ -22,12 +24,11 @@ public class ObjectTranslator {
 //	}
 	
 	public String Login(String email, String password) throws Exception {
-		Users currentUser  = new Users();
 		System.out.println("login koerer");
 		currentUser.setEmail(email);
 		currentUser.setPassword(password);
 		//users.setActive(true);
-		currentUser.setOverallID("logIn");
+//		currentUser.setOverallID("logIn");
 		String gsonString = gson.toJson(currentUser);
 //		System.out.println(gsonString);
 		
