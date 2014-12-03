@@ -17,6 +17,9 @@ public class CalendarDay extends JPanel {
 	
 	private ActionController actionController;
 	private JLabel title;
+	private JLabel celsius;
+	private JLabel date;
+	private JLabel desc;
 	private JButton back;
 	private JScrollPane scrollPane;
 	private JTable resultTable;
@@ -24,9 +27,11 @@ public class CalendarDay extends JPanel {
 	private JButton showNote;
 	private JButton setNote;
 	private JTextField noteField;
-	public static final String BACK = "Back";
+	private JButton createEvent;
+	public static final String BACK = "back";
 	public static final String FORECAST = "foreCast"; 
 	public static final String SHOWNOTE = "note";
+	public static final String CREATEEVENT = "createEvent";
 	public static final String SETNOTE = "setNote";
 	
 	public CalendarDay (ActionController actionController){
@@ -37,25 +42,44 @@ public class CalendarDay extends JPanel {
 		
 		setLayout(null);
 		
-		title = new JLabel("Label");
-		title.setBounds(168, 11, 139, 16);
+		title = new JLabel("title");
+		title.setBounds(168, 6, 139, 16);
 		add(title);
 		
+		date = new JLabel ("date");
+		date.setBounds(168, 82, 144, 20);
+		date.setVisible(false);
+		add(date);
+	
+		
+		celsius = new JLabel ("celsius");
+		celsius.setBounds(168, 96, 146, 22);
+		celsius.setVisible(false);
+		add(celsius);
+		
+		
+		desc = new JLabel ("desc");
+		desc.setBounds(168, 114, 148, 24);
+		desc.setVisible(false);
+		add(desc);
+		
+		
+		
 		back = new JButton("Back");
-		back.setBounds(168, 150, 75, 29);
+		back.setBounds(168, 176, 75, 29);
 		back.addActionListener(actionController);
 		back.setActionCommand(BACK);
 		add(back);
 		
 		
 		Forecast = new JButton("Forecast");
-		Forecast.setBounds(440, 94, 117, 29);
+		Forecast.setBounds(440, 57, 117, 29);
 		Forecast.addActionListener(actionController);
 		Forecast.setActionCommand(FORECAST);
 		add(Forecast);
 		
 		showNote = new JButton("Note");
-		showNote.setBounds(440, 135, 117, 29);
+		showNote.setBounds(440, 82, 117, 29);
 		showNote.addActionListener(actionController);
 		showNote.setActionCommand(SHOWNOTE);
 		add(showNote);
@@ -68,9 +92,15 @@ public class CalendarDay extends JPanel {
 		add(setNote);
 		
 		noteField = new JTextField();
-		noteField.setBounds(50, 50, 400, 100);
+		noteField.setBounds(28, 57, 400, 100);
 		noteField.setVisible(false);
 		add(noteField);
+		
+		createEvent = new JButton("Create a event");
+		createEvent.setBounds(440, 113, 117, 29);
+		createEvent.addActionListener(actionController);
+		createEvent.setActionCommand(CREATEEVENT);
+		add(createEvent);
 		
 	}
 	
@@ -105,6 +135,27 @@ public class CalendarDay extends JPanel {
 
 	public void setTitle(JLabel title) {
 		this.title = title;
+	}
+	public JLabel getCelsius() {
+		return title;
+	}
+
+	public void setCelsius(JLabel celsius) {
+		this.celsius = celsius;
+	}
+	public JLabel getDesc() {
+		return desc;
+	}
+
+	public void setDesc(JLabel desc) {
+		this.desc = desc;
+	}
+	public JLabel getDate() {
+		return date;
+	}
+
+	public void setDate(JLabel date) {
+		this.date = date;
 	}
 
 	public JScrollPane getScrollPane() {
@@ -141,4 +192,11 @@ public class CalendarDay extends JPanel {
 	public void setSetNote(JButton setNote){
 		this.setNote = setNote;
 	}
+	public JButton getCreateEvent(){
+		return createEvent;
+	}
+	public void setCreateEvent(JButton createEvent){
+		this.createEvent = createEvent;
+	}
+	
 }

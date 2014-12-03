@@ -1,5 +1,7 @@
 package shared;
 
+import java.sql.Timestamp;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -67,17 +69,18 @@ public class ObjectTranslator {
 	}
 	
 	
-//	public void createEvent(String description, Timestamp startTimestamp, Timestamp endTimestamp, String location, String title ){
-//		events.setDescription(description);
-//		events.setStartTimestamp(startTimestamp);
-//		events.setEndTimestamp(endTimestamp);
-//		events.setLocation(location);
-//		events.setTitle(title);
-//		events.setActive(true);
-//		events.setOverallID("createEvent");
-//		String gsonString = gson.toJson(events);
-//		sc.connect(gsonString);
-//	}
+	public void createEvent(String description, Timestamp startTimestamp, Timestamp endTimestamp, String location, String title ){
+		events.setOverallID("getEvent");
+		events.setDescription(description);
+		events.setStartTimestamp(startTimestamp);
+		events.setEndTimestamp(endTimestamp);
+		events.setLocation(location);
+		events.setTitle(title);
+		events.setActive(true);
+		events.setOverallID("createEvent");
+		String gsonString = gson.toJson(events);
+		sc.connect(gsonString);
+	}
 	
 
 }

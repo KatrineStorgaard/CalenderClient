@@ -1,26 +1,30 @@
 package gui;
 
 import javax.swing.JPanel;
-
 import java.awt.Color;
-
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import logic.ActionController;
 
 public class CreateEvent extends JPanel{
-	private JTextField textTitle;
-	private JTextField textLocation;
-	private JTextField textDescription;
-	private JTextField textStart;
-	private JTextField textEnd;
+	private JTextField title;
+	private JTextField location;
+	private JTextField description;
+	private JTextField start;
+	private JTextField end;
+	private JLabel lblStart;
+	private JLabel lblEnd;
+	private JLabel lblTitle;
+	private JLabel lblLocation;
+	private JLabel lblDescription;
+	private JButton cancel;
+	private JButton createEventSubmit;
 	
 	public static final String CREATEEVENTSUBMIT  = "createEventSubmit";
+	public static final String CANCEL = "cancel";
 	
 	public CreateEvent(ActionController actionController) {
 		setBackground(Color.PINK);
@@ -30,81 +34,95 @@ public class CreateEvent extends JPanel{
 		lblCreateEvent.setBounds(186, 25, 78, 16);
 		add(lblCreateEvent);
 		
-		JButton btnCreate = new JButton("Create");
-		btnCreate.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-		btnCreate.setBounds(76, 241, 117, 29);
-		add(btnCreate);
-		btnCreate.setActionCommand(CREATEEVENTSUBMIT);
-		
-		JButton btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(275, 241, 117, 29);
-		add(btnCancel);
-		
-		textTitle = new JTextField();
-		textTitle.setBounds(217, 53, 134, 28);
-		add(textTitle);
-		textTitle.setColumns(10);
-		
-		textLocation = new JTextField();
-		textLocation.setBounds(217, 93, 134, 28);
-		add(textLocation);
-		textLocation.setColumns(10);
-		
-		textDescription = new JTextField();
-		textDescription.setBounds(217, 133, 134, 28);
-		add(textDescription);
-		textDescription.setColumns(10);
-		
-		JLabel lblTitle = new JLabel("Title:");
+		lblTitle = new JLabel("Title:");
 		lblTitle.setBounds(161, 59, 32, 16);
 		add(lblTitle);
 		
-		JLabel lblLocation = new JLabel("Location:");
+		lblLocation = new JLabel("Location:");
 		lblLocation.setBounds(132, 99, 61, 16);
 		add(lblLocation);
 		
-		JLabel lblDescription = new JLabel("Description:");
+		lblDescription = new JLabel("Description:");
 		lblDescription.setBounds(116, 139, 77, 16);
 		add(lblDescription);
 		
-		textStart = new JTextField();
-		textStart.setBounds(170, 180, 54, 28);
-		add(textStart);
-		textStart.setColumns(10);
-		
-		textEnd = new JTextField();
-		textEnd.setBounds(290, 180, 61, 28);
-		add(textEnd);
-		textEnd.setColumns(10);
-		
-		JLabel lblStart = new JLabel("Start");
+		lblStart = new JLabel("Start");
 		lblStart.setBounds(124, 186, 29, 16);
 		add(lblStart);
 		
-		JLabel lblEnd = new JLabel("End");
+		lblEnd = new JLabel("End");
 		lblEnd.setBounds(250, 186, 28, 16);
 		add(lblEnd);
-	}
-	public JTextField getTextTitle(){
-		return  textTitle;	
-	}
-	
-	public JTextField getTextLocation(){
-		return  textLocation;	
-	}
-	
-	public JTextField getTextDescription(){
-		return  textDescription;
-	}
-	public JTextField getTextStart(){
-		return textStart;
-	}
-	public JTextField getTextEnd(){
-		return  textEnd;
 		
+		createEventSubmit = new JButton("Create");
+		createEventSubmit.setBounds(76, 214, 117, 29);
+		createEventSubmit.setActionCommand(CREATEEVENTSUBMIT);
+		add(createEventSubmit);
+		
+		
+		cancel = new JButton("Cancel");
+		cancel.setBounds(313, 214, 117, 29);
+		cancel.setActionCommand(CANCEL);
+		add(cancel);
+		
+		title = new JTextField();
+		title.setBounds(217, 53, 134, 28);
+		title.setColumns(10);
+		add(title);
+		
+		location = new JTextField();
+		location.setBounds(217, 93, 134, 28);
+		location.setColumns(10);
+		add(location);
+		
+		description = new JTextField();
+		description.setBounds(217, 133, 134, 28);
+		description.setColumns(10);
+		add(description);
+		
+		start = new JTextField();
+		start.setBounds(170, 180, 54, 28);
+		start.setColumns(10);
+		add(start);
+		
+		
+		end = new JTextField();
+		end.setBounds(290, 180, 61, 28);
+		end.setColumns(10);
+		add(end);
+	
 	}
+	
+	public JTextField getTitle() {
+		return title;
+	}
+	public void setTitle(JTextField title) {
+		this.title = title;
+	}
+	public JTextField getaLocation() {
+		return location;
+	}
+	public void setLocation(JTextField location) {
+		this.location = location;
+	}
+	public JTextField getDescription() {
+		return description;
+	}
+	public void setDescription(JTextField description) {
+		this.description = description;
+	}
+	public JTextField getStart(){
+		return start;
+	}
+	public void setStart(JTextField Start) {
+		this.start = Start;
+	}
+	public JTextField getEnd(){
+		return end;
+	}
+	public void setEnd(JTextField end) {
+		this.end = end;
+	}
+	
+	
 }

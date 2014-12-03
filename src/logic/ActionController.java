@@ -2,11 +2,13 @@ package logic;
 
 import gui.CalendarDay;
 import gui.CalendarWeek;
+import gui.CreateEvent;
 import gui.Login;
 import gui._Screen;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -31,6 +33,7 @@ public class ActionController implements ActionListener {
 	Users currentUser = new Users();
 	ServerConnection sc = new ServerConnection();
 	ObjectTranslator ot = new ObjectTranslator();
+	Events currentEvent = new Events();
 	Gson gson = new GsonBuilder().create();
 	ArrayList<Events> events = new ArrayList<Events>();
 	
@@ -80,7 +83,6 @@ public class ActionController implements ActionListener {
 							for ( int i = 0; i<event.length; i ++){
 								
 								events.add(event[i]);
-								System.out.println("Event added");
 							}
 						}
 						
@@ -90,26 +92,6 @@ public class ActionController implements ActionListener {
 					}
 
 				}
-					// if the entered info is validated
-//					if (answer.equalsIgnoreCase("Login Successful")) {
-//						screen.show(screen.CALENDARWEEK);
-//							}// end if
-//								// if user status is false
-//							else {
-//								JOptionPane.showMessageDialog(screen,
-//										"Something went wrong");
-//							}// end else
-//						}// end if
-//				if (cmd.equals(CreateEvent.CREATEEVENTSUBMIT)){
-//					String title = screen.getCreateEvent().getTextTitle().getText();
-//					String location = screen.getCreateEvent().getTextLocation().getText();
-//					String description = screen.getCreateEvent().getTextDescription().getText();
-//					String sT = screen.getCreateEvent().getTextStart().getText();
-//					String eT = screen.getCreateEvent().getTextEnd().getText();
-//					System.out.println(title + location + description + startTimestamp+ endTimestamp);
-//					
-//					Events ec = co.createEvent(description, startTimestamp, endTimestamp, location, title);
-//				}
 				
 				else if(cmd.equals(CalendarWeek.PREVIOUS)){
 					
@@ -137,8 +119,28 @@ public class ActionController implements ActionListener {
 					
 					String result = ot.getForecact(selectedMonth+1, selectedDay);
 					Forecast fc = gson.fromJson(result, Forecast.class);
-					screen.getCalendarDay().getTitle().setText(fc.getCelsius());
+					screen.getCalendarDay().getTitle().setText("forecast for today");
+					screen.getCalendarDay().getDate().setText(fc.getDate());
+					screen.getCalendarDay().getDate().setVisible(true);
+					screen.getCalendarDay().getCelsius().setText(fc.getCelsius());
+					screen.getCalendarDay().getCelsius().setVisible(true);
+					screen.getCalendarDay().getDesc().setText(fc.getDesc());
+					screen.getCalendarDay().getDesc().setVisible(true);
 				}
+				else if(cmd.equals(CalendarDay.CREATEEVENT)){
+					screen.show(screen.CREATEEVENT);
+				}
+				else if(cmd.equals(CreateEvent.CREATEEVENTSUBMIT)){
+					String title = screen.getCreateEvent().getTitle().getText();
+					String location = screen.getCreateEvent().getaLocation().getText();
+					String description = screen.getCreateEvent().getDescription().getText();
+					String startTimestamp = screen.getCreateEvent().getStart().getText();
+					String endTimestamp = screen.getCreateEvent().getEnd().getText();
+					
+				 String result = ot.createEvent(description, startTimestamp, endTimestamp, location, title); 
+					currentEvent = (Events) gson.fromJson(result, Events.class);
+					}
+	
 				
 				else if(cmd.equals(CalendarDay.SHOWNOTE)){
 					
