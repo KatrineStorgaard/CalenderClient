@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+
 import shared.ServerConnection;
 import logic.ActionController;
 
@@ -18,9 +20,14 @@ public class CalendarDay extends JPanel {
 	private JButton back;
 	private JScrollPane scrollPane;
 	private JTable resultTable;
-	private JButton forecast;
+	private JButton Forecast;
+	private JButton showNote;
+	private JButton setNote;
+	private JTextField noteField;
 	public static final String BACK = "Back";
 	public static final String FORECAST = "foreCast"; 
+	public static final String SHOWNOTE = "note";
+	public static final String SETNOTE = "setNote";
 	
 	public CalendarDay (ActionController actionController){
 		setBackground(Color.PINK);
@@ -40,26 +47,35 @@ public class CalendarDay extends JPanel {
 		back.setActionCommand(BACK);
 		add(back);
 		
-		forecast = new JButton("Forecast");
-		forecast.setBounds(440, 94, 117, 29);
-		forecast.addActionListener(actionController);
-		forecast.setActionCommand(FORECAST);
-		add(forecast);
 		
-//		scrollPane = new JScrollPane();
-//		scrollPane.setBorder(new CompoundBorder(new BevelBorder(
-//				BevelBorder.LOWERED, new Color(0, 0, 205), new Color(255, 255,
-//						255), new Color(0, 0, 205), new Color(255, 255, 255)),
-//				new MatteBorder(1, 1, 1, 1, (Color) new Color(255, 255, 255))));
-//		scrollPane.setViewportBorder(new CompoundBorder(new BevelBorder(
-//				BevelBorder.LOWERED, new Color(0, 0, 205), new Color(255, 255,
-//						255), new Color(0, 0, 205), new Color(255, 255, 255)),
-//				null));
-//		scrollPane.setBounds(26, 30, 398, 120);
-//
-//		// Add the scroll pane to this panel.
-//		add(scrollPane);
+		Forecast = new JButton("Forecast");
+		Forecast.setBounds(440, 94, 117, 29);
+		Forecast.addActionListener(actionController);
+		Forecast.setActionCommand(FORECAST);
+		add(Forecast);
 		
+		showNote = new JButton("Note");
+		showNote.setBounds(440, 135, 117, 29);
+		showNote.addActionListener(actionController);
+		showNote.setActionCommand(SHOWNOTE);
+		add(showNote);
+		
+		setNote = new JButton("Set Note");
+		setNote.setBounds(626, 23, 105, 29);
+		setNote.addActionListener(actionController);
+		setNote.setActionCommand(SETNOTE);
+		setNote.setVisible(false);
+		add(setNote);
+		
+		noteField = new JTextField();
+		noteField.setBounds(50, 50, 400, 100);
+		noteField.setVisible(false);
+		add(noteField);
+		
+	}
+	
+	public void removeNotefield(){
+		this.remove(noteField);
 	}
 
 	public void addTable(Object[][] data,String[] columnNames){
@@ -68,6 +84,7 @@ public class CalendarDay extends JPanel {
 		this.remove(resultTable);
 		this.remove(scrollPane);
 		}
+	
 		 resultTable = new JTable(data, columnNames);
 		 resultTable.setPreferredScrollableViewportSize(new Dimension(800,70));
 		 resultTable.setFillsViewportHeight(true);
@@ -105,5 +122,23 @@ public class CalendarDay extends JPanel {
 	public void setResultTable(JTable resultTable) {
 		this.resultTable = resultTable;
 	}
-	
+	public JButton getShowNote() {
+		return showNote;
+	}
+
+	public void setShowNote(JButton btnshowNote) {
+		this.showNote = showNote;
+	}
+	public JTextField getNoteField(){
+		return noteField;
+	}
+	public void setNoteField(JTextField noteField){
+		this.noteField = noteField;
+	}
+	public JButton getSetNote(){
+		return setNote;
+	}
+	public void setSetNote(JButton setNote){
+		this.setNote = setNote;
+	}
 }

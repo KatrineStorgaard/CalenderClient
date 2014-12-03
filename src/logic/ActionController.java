@@ -16,6 +16,7 @@ import com.google.gson.GsonBuilder;
 
 import shared.Events;
 import shared.Forecast;
+import shared.Notes;
 import shared.ObjectTranslator;
 import shared.ServerConnection;
 import shared.Users;
@@ -137,6 +138,19 @@ public class ActionController implements ActionListener {
 					String result = ot.getForecact(selectedMonth+1, selectedDay);
 					Forecast fc = gson.fromJson(result, Forecast.class);
 					screen.getCalendarDay().getTitle().setText(fc.getCelsius());
+				}
+				
+				else if(cmd.equals(CalendarDay.SHOWNOTE)){
+					
+					screen.getCalendarDay().removeTable();
+					screen.getCalendarDay().repaint();
+					
+					String result = ot.getNote(42);
+					Notes n = gson.fromJson(result, Notes.class);
+					
+					screen.getCalendarDay().getTitle().setText(n.getText());
+					screen.getCalendarDay().getSetNote().setVisible(true);
+				
 				}
 				
 				else {
