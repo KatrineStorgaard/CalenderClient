@@ -23,7 +23,7 @@ public class CreateEvent extends JPanel{
 	private JButton cancel;
 	private JButton createEventSubmit;
 	
-	public static final String CREATEEVENTSUBMIT  = "createEventSubmit";
+	public static final String CREATEEVENTSUBMIT  = "Create";
 	public static final String CANCEL = "cancel";
 	
 	public CreateEvent(ActionController actionController) {
@@ -47,11 +47,11 @@ public class CreateEvent extends JPanel{
 		add(lblDescription);
 		
 		lblStart = new JLabel("Start");
-		lblStart.setBounds(124, 186, 29, 16);
+		lblStart.setBounds(6, 186, 29, 16);
 		add(lblStart);
 		
 		lblEnd = new JLabel("End");
-		lblEnd.setBounds(250, 186, 28, 16);
+		lblEnd.setBounds(225, 186, 28, 16);
 		add(lblEnd);
 		
 		createEventSubmit = new JButton("Create");
@@ -81,13 +81,15 @@ public class CreateEvent extends JPanel{
 		add(description);
 		
 		start = new JTextField();
-		start.setBounds(170, 180, 54, 28);
+		start.setText("yyyy-mm-dd hh:mm:ss.sss");
+		start.setBounds(35, 180, 191, 28);
 		start.setColumns(10);
 		add(start);
 		
 		
 		end = new JTextField();
-		end.setBounds(290, 180, 61, 28);
+		end.setText("yyyy-mm-dd hh:mm:ss.sss");
+		end.setBounds(253, 180, 191, 28);
 		end.setColumns(10);
 		add(end);
 	

@@ -8,7 +8,10 @@ import gui._Screen;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -112,7 +115,7 @@ public class ActionController implements ActionListener {
 					JOptionPane.showMessageDialog( screen, sc.connect("getQuote"));
 				}
 				
-				else if(cmd.equals(CalendarDay.FORECAST)){
+				if(cmd.equals(CalendarDay.FORECAST)){
 					
 					screen.getCalendarDay().removeTable();
 					screen.getCalendarDay().repaint();
@@ -134,11 +137,30 @@ public class ActionController implements ActionListener {
 					String title = screen.getCreateEvent().getTitle().getText();
 					String location = screen.getCreateEvent().getaLocation().getText();
 					String description = screen.getCreateEvent().getDescription().getText();
-					String startTimestamp = screen.getCreateEvent().getStart().getText();
-					String endTimestamp = screen.getCreateEvent().getEnd().getText();
-					
-				 String result = ot.createEvent(description, startTimestamp, endTimestamp, location, title); 
-					currentEvent = (Events) gson.fromJson(result, Events.class);
+					String start = screen.getCreateEvent().getStart().getText();
+					String end = screen.getCreateEvent().getEnd().getText();
+					System.out.println(title+" "+location+" "+description+" "+start+" "+end );
+					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+					Date parsedDate = null;
+					try {
+						parsedDate = (Date) dateFormat.parse(start);
+					} catch (ParseException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+					Timestamp startTimestamp = new Timestamp(parsedDate.getTime());
+					System.out.println(startTimestamp);
+					SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+					Date parsedDate1 = null;
+					try {
+						parsedDate1 = (Date) dateFormat1.parse(end);
+					} catch (ParseException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					Timestamp endTimestamp = new Timestamp(parsedDate1.getTime());
+					System.out.println(endTimestamp);
+				  ot.createEvent(description, startTimestamp, endTimestamp, location, title); 
 					}
 	
 				

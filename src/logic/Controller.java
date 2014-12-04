@@ -1,5 +1,7 @@
 package logic;
 
+import java.sql.Timestamp;
+
 import shared.Events;
 import shared.ObjectTranslator;
 import shared.Users;
@@ -22,11 +24,11 @@ public class Controller {
 			
 	}
 	
-//	public Events createEvent(String description, Timestamp startTimestamp, Timestamp endTimestamp, String location, String title){
-//		
-//		ot.createEvent(description, startTimestamp, endTimestamp, location, title);
-//		return ec;
-//	}
+	public Events createEvent(String description, Timestamp startTimestamp, Timestamp endTimestamp, String location, String title){
+		
+		ot.createEvent(description, startTimestamp, endTimestamp, location, title);
+		return ec;
+	}
 
 
 }

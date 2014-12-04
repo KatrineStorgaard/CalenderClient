@@ -69,7 +69,7 @@ public class ObjectTranslator {
 	}
 	
 	
-	public void createEvent(String description, Timestamp startTimestamp, Timestamp endTimestamp, String location, String title ){
+	public String createEvent(String description, Timestamp startTimestamp, Timestamp endTimestamp, String location, String title ){
 		events.setOverallID("getEvent");
 		events.setDescription(description);
 		events.setStartTimestamp(startTimestamp);
@@ -79,7 +79,7 @@ public class ObjectTranslator {
 		events.setActive(true);
 		events.setOverallID("createEvent");
 		String gsonString = gson.toJson(events);
-		sc.connect(gsonString);
+		return sc.connect(gsonString);
 	}
 	
 
