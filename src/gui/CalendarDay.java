@@ -118,6 +118,8 @@ public class CalendarDay extends JPanel {
 		 resultTable = new JTable(data, columnNames);
 		 resultTable.setPreferredScrollableViewportSize(new Dimension(800,70));
 		 resultTable.setFillsViewportHeight(true);
+		 resultTable.setEnabled(false);
+		 
 		 
 		 scrollPane = new JScrollPane(resultTable);
 		 scrollPane.setBounds(26, 30, 398, 120);

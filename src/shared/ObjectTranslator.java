@@ -25,19 +25,17 @@ public class ObjectTranslator {
 //		return sc.connect(gsonString);		
 //	}
 	
-	public String Login(String email, String password) throws Exception {
+	public String Login(String email, String password){
 		System.out.println("login koerer");
 		currentUser.setEmail(email);
 		currentUser.setPassword(password);
-		//users.setActive(true);
-//		currentUser.setOverallID("logIn");
 		String gsonString = gson.toJson(currentUser);
-//		System.out.println(gsonString);
+
 		
 		return sc.connect(gsonString);		
 	}
 	
-	public String getEvents( int userId) throws Exception{
+	public String getEvents( int userId) {
 		sim.setOverallID("getEvents");
 		sim.setUserId(userId);
 		System.out.println(sim.toString());
@@ -79,6 +77,19 @@ public class ObjectTranslator {
 		events.setActive(true);
 		events.setOverallID("createEvent");
 		String gsonString = gson.toJson(events);
+		return sc.connect(gsonString);
+	}
+
+	public String createNote(int noteId, int id, int createdBy, String text) {
+		
+		sim.setOverallID("createNote");
+		sim.setNoteId(noteId);
+		sim.setId(id);
+		sim.setUserId(createdBy);
+		sim.setText(text);
+		
+		String gsonString = gson.toJson(sim);
+		
 		return sc.connect(gsonString);
 	}
 	

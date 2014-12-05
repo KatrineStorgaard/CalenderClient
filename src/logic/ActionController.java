@@ -68,7 +68,6 @@ public class ActionController implements ActionListener {
 					// parses username and password to the method login
 					System.out.println(email + " " + password);
 					
-					try {
 					
 						String reply = ot.Login(email, password);
 
@@ -89,12 +88,7 @@ public class ActionController implements ActionListener {
 							}
 						}
 						
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-
-				}
+					} 
 				
 				else if(cmd.equals(CalendarWeek.PREVIOUS)){
 					
@@ -108,6 +102,7 @@ public class ActionController implements ActionListener {
 				else if (cmd.equals(CalendarDay.BACK)){
 					screen.show(screen.CALENDARWEEK);
 					screen.setTitle("Week view");
+					screen.getCalendarDay().removeNotefield();
 				}
 				
 				else if(cmd.equals(CalendarWeek.QUOTE))
@@ -115,7 +110,7 @@ public class ActionController implements ActionListener {
 					JOptionPane.showMessageDialog( screen, sc.connect("getQuote"));
 				}
 				
-				if(cmd.equals(CalendarDay.FORECAST)){
+				else if(cmd.equals(CalendarDay.FORECAST)){
 					
 					screen.getCalendarDay().removeTable();
 					screen.getCalendarDay().repaint();
@@ -130,38 +125,38 @@ public class ActionController implements ActionListener {
 					screen.getCalendarDay().getDesc().setText(fc.getDesc());
 					screen.getCalendarDay().getDesc().setVisible(true);
 				}
-				else if(cmd.equals(CalendarDay.CREATEEVENT)){
-					screen.show(screen.CREATEEVENT);
-				}
-				else if(cmd.equals(CreateEvent.CREATEEVENTSUBMIT)){
-					String title = screen.getCreateEvent().getTitle().getText();
-					String location = screen.getCreateEvent().getaLocation().getText();
-					String description = screen.getCreateEvent().getDescription().getText();
-					String start = screen.getCreateEvent().getStart().getText();
-					String end = screen.getCreateEvent().getEnd().getText();
-					System.out.println(title+" "+location+" "+description+" "+start+" "+end );
-					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
-					Date parsedDate = null;
-					try {
-						parsedDate = (Date) dateFormat.parse(start);
-					} catch (ParseException e2) {
-						// TODO Auto-generated catch block
-						e2.printStackTrace();
-					}
-					Timestamp startTimestamp = new Timestamp(parsedDate.getTime());
-					System.out.println(startTimestamp);
-					SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
-					Date parsedDate1 = null;
-					try {
-						parsedDate1 = (Date) dateFormat1.parse(end);
-					} catch (ParseException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					Timestamp endTimestamp = new Timestamp(parsedDate1.getTime());
-					System.out.println(endTimestamp);
-				  ot.createEvent(description, startTimestamp, endTimestamp, location, title); 
-					}
+//				else if(cmd.equals(CalendarDay.CREATEEVENT)){
+//					screen.show(screen.CREATEEVENT);
+//				}
+//				else if(cmd.equals(CreateEvent.CREATEEVENTSUBMIT)){
+//					String title = screen.getCreateEvent().getTitle().getText();
+//					String location = screen.getCreateEvent().getaLocation().getText();
+//					String description = screen.getCreateEvent().getDescription().getText();
+//					String start = screen.getCreateEvent().getStart().getText();
+//					String end = screen.getCreateEvent().getEnd().getText();
+//					System.out.println(title+" "+location+" "+description+" "+start+" "+end );
+//					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+//					Date parsedDate = null;
+//					try {
+//						parsedDate = (Date) dateFormat.parse(start);
+//					} catch (ParseException e2) {
+//						// TODO Auto-generated catch block
+//						e2.printStackTrace();
+//					}
+//					Timestamp startTimestamp = new Timestamp(parsedDate.getTime());
+//					System.out.println(startTimestamp);
+//					SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+//					Date parsedDate1 = null;
+//					try {
+//						parsedDate1 = (Date) dateFormat1.parse(end);
+//					} catch (ParseException e1) {
+//						// TODO Auto-generated catch block
+//						e1.printStackTrace();
+//					}
+//					Timestamp endTimestamp = new Timestamp(parsedDate1.getTime());
+//					System.out.println(endTimestamp);
+//				  ot.createEvent(description, startTimestamp, endTimestamp, location, title); 
+//					}
 	
 				
 				else if(cmd.equals(CalendarDay.SHOWNOTE)){
@@ -176,11 +171,24 @@ public class ActionController implements ActionListener {
 					screen.getCalendarDay().getSetNote().setVisible(true);
 				
 				}
+				else if(cmd.equals(CalendarDay.SETNOTE)){
+					screen.getCalendarDay().removeTable();
+					screen.getCalendarDay().repaint();
+					
+					screen.getCalendarDay().getNoteField().setVisible(true);
+					screen.getCalendarDay().getNoteField().setText(screen.getCalendarDay().getTitle().getText());
+					
+					System.out.println("ID: "+currentUser.getUserId() );
+					
+					String result = ot.createNote(1337, 42, 1, screen.getCalendarDay().getNoteField().getText());
+					
+					System.out.println(result);
+				}
 				
 				else {
 					String currentDay = cmd;
 					
-					int iMid = cmd.indexOf(screen.getCalendarWeek().getMONTHDAYSEPARATOR());
+					int iMid = currentDay.indexOf(screen.getCalendarWeek().MONTHDAYSEPARATOR);
 					String monthString = currentDay.substring(0, iMid);
 					
 					int iMonth = 0;

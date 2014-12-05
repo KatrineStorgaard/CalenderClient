@@ -14,6 +14,8 @@ private Timestamp date;
 private int day;
 private int month;
 private int year;
+private int noteId;
+private String text;
 
 public SimpleCall(){
 	
@@ -68,6 +70,19 @@ public void setYear(int year) {
 }
 public long getSerialVersionUID() {
 	return serialVersionUID;
+}
+
+public int getNoteId() {
+	return noteId;
+}
+public void setNoteId(int noteId) {
+	this.noteId = noteId;
+}
+public String getText() {
+	return text;
+}
+public void setText(String text) {
+	this.text = text;
 }
 @Override
 public String toString() {
