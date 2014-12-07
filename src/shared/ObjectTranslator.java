@@ -12,6 +12,7 @@ public class ObjectTranslator {
 	ServerConnection sc = new ServerConnection();
 	SimpleCall sim = new SimpleCall();
 	Users currentUser  = new Users();
+	Calendar cal = new Calendar();
 
 
 //	public String checklog(String email, String password) {
@@ -33,6 +34,15 @@ public class ObjectTranslator {
 
 		
 		return sc.connect(gsonString);		
+	}
+	
+	public String getCalendars(int userId){
+		cal.setOveralleID("getCalendars");
+		cal.setUserid(userId);
+		
+		String gsonString = gson.toJson(cal);
+		return sc.connect(gsonString);
+		
 	}
 	
 	public String getEvents( int userId) {

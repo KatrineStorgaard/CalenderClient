@@ -30,8 +30,8 @@ public class CalendarWeek extends JPanel{
 	private JPanel p1;
 	private JPanel p2;
 	private JPanel p3;
-	private static int START_WEEK;
-	private static int START_YEAR;
+	public static int START_WEEK;
+	public static int START_YEAR;
 	public static String MONTHDAYSEPARATOR =" ";
 
 	//Declaration of panel constants
@@ -112,20 +112,6 @@ public class CalendarWeek extends JPanel{
 	}
 
 
-	public void displayDate(int weekNumber, int yearNumber){
-	
-		cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-		cal.set(Calendar.WEEK_OF_YEAR, weekNumber);
-		cal.set(Calendar.YEAR, yearNumber);
-
-
-		for (int x = 0; x < button.length; x++) {
-
-			int k = Integer.parseInt(String.valueOf(cal.getTime().getDate()));
-			cal.add(Calendar.DATE, 1);
-			button[x].setText(String.valueOf(k));
-		}
-	}
 
 	public void displayDate2(int weekNumber, int yearNumber){
 
@@ -168,9 +154,8 @@ public class CalendarWeek extends JPanel{
 		displayDate2(START_WEEK,START_YEAR);
 
 		String stringNextWeek = String.valueOf(START_WEEK);
-
-		uge.setText(stringNextWeek);
-
+		String stringNextYear = String.valueOf(START_YEAR);
+		uge.setText(stringNextWeek);		
 
 	}
 	public static String getMONTHDAYSEPARATOR() {

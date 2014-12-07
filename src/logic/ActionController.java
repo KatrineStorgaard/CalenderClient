@@ -8,6 +8,7 @@ import gui._Screen;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.swing.JOptionPane;
 
@@ -20,6 +21,7 @@ import shared.Notes;
 import shared.ObjectTranslator;
 import shared.ServerConnection;
 import shared.Users;
+import sun.util.calendar.CalendarSystem;
 
 public class ActionController implements ActionListener {
 	
@@ -33,6 +35,7 @@ public class ActionController implements ActionListener {
 	Events currentEvent = new Events();
 	Gson gson = new GsonBuilder().create();
 	ArrayList<Events> events = new ArrayList<Events>();
+	ArrayList<Calendar> calendars = new ArrayList<Calendar>();
 	
 	// constructor
 	public ActionController(_Screen screen) {
@@ -58,10 +61,6 @@ public class ActionController implements ActionListener {
 					String email = screen.getLogin().getTxtremail().getText();
 					String password = screen.getLogin().getPasswordField().getText();
 					
-					// parses username and password to the method login
-					System.out.println(email + " " + password);
-					
-					
 						String reply = ot.Login(email, password);
 
 						if (!reply.equals("invalid")){
@@ -79,17 +78,41 @@ public class ActionController implements ActionListener {
 								
 								events.add(event[i]);
 							}
+							
+							String respons = ot.getCalendars(currentUser.getUserId());
+							
+							Calendar[] calendar = gson.fromJson(respons, Calendar[].class);
+							
+							for(int i = 0; i < calendar.length; i++){
+								calendars.add(calendar[i]);
+							}
 						}
 						
 					} 
 				
 				else if(cmd.equals(CalendarWeek.PREVIOUS)){
 					
-					screen.getCalendarWeek().refreshDate(-1);
+					if(screen.getCalendarWeek().START_WEEK <= 1){
+						screen.getCalendarWeek().START_WEEK = 52;
+						screen.getCalendarWeek().START_YEAR--;
+						screen.getCalendarWeek().refreshDate(0);
+					}else{
+						
+						screen.getCalendarWeek().refreshDate(-1);
+					}
+							
+							
 				}
 				
 				else if(cmd.equals(CalendarWeek.NEXT)){
-					screen.getCalendarWeek().refreshDate(+1);
+					if(screen.getCalendarWeek().START_WEEK >= 52){
+						screen.getCalendarWeek().START_WEEK = 1;
+						screen.getCalendarWeek().START_YEAR++;
+						screen.getCalendarWeek().refreshDate(0);
+					}else{
+						
+						screen.getCalendarWeek().refreshDate(+1);
+					}
 				}
 				
 				else if (cmd.equals(CalendarDay.BACK)){
