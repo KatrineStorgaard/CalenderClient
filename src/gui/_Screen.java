@@ -24,6 +24,7 @@ public class _Screen extends JFrame {
 	private CalendarDay calendarDay;
 	private CreateEvent createEvent;
 	private CreateNote createNote;
+	private CalendarSettings calendarSettings;
 
 	// Declaration of constants
 	public static final String LOGIN = "login";
@@ -31,6 +32,7 @@ public class _Screen extends JFrame {
 	public static final String CALENDARDAY = "calendarDay";
 	public static final String CREATEEVENT = "createEvent";
 	public static final String CREATENOTE = "createNote";
+	public static final String CALENDARSETTINGS = "calendarSettings";
 
 	
 	// no-argument constructor
@@ -50,7 +52,8 @@ public class _Screen extends JFrame {
 		calendarWeek = new CalendarWeek(actionController);
 		calendarDay = new CalendarDay(actionController);
 		createNote = new CreateNote(actionController);
-		createEvent = new CreateEvent(actionController);		
+		createEvent = new CreateEvent(actionController);	
+		calendarSettings = new CalendarSettings(actionController);
 
 		//adding JPanels to the contentPane
 		contentPane.add(login, LOGIN);
@@ -58,6 +61,7 @@ public class _Screen extends JFrame {
 		contentPane.add(createNote, CREATENOTE);
 		contentPane.add(createEvent, CREATEEVENT);
 		contentPane.add(calendarDay, CALENDARDAY);
+		contentPane.add(calendarSettings, CALENDARSETTINGS);
 		
 		
 		
@@ -102,6 +106,9 @@ public class _Screen extends JFrame {
 		return createNote;
 	}
 	
+	public CalendarSettings getCalendarSettings(){
+		return calendarSettings;
+	}
 	
 
 }// end class _Screen

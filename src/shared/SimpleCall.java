@@ -16,6 +16,7 @@ private int month;
 private int year;
 private int noteId;
 private String text;
+private int calendarId;
 
 public SimpleCall(){
 	
@@ -83,6 +84,12 @@ public String getText() {
 }
 public void setText(String text) {
 	this.text = text;
+}
+public int getCalendarId() {
+	return calendarId;
+}
+public void setCalendarId(int calendarId) {
+	this.calendarId = calendarId;
 }
 @Override
 public String toString() {

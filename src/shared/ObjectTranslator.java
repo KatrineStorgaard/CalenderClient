@@ -45,6 +45,36 @@ public class ObjectTranslator {
 		
 	}
 	
+	public String createCalendar(String title, int userID){
+		cal.setOveralleID("createCalendar");
+		cal.setTitle(title);
+		cal.setUserid(userID);
+		
+		String gsonString = gson.toJson(cal);
+		
+		return sc.connect(gsonString);
+	}
+	
+	public String deleteCalendar(int calId, int userId){
+		cal.setOveralleID("deleteCalendar");
+		cal.setCalendarid(calId);
+		cal.setUserid(userId);
+		
+		String gsonString = gson.toJson(cal);
+		return sc.connect(gsonString);
+	}
+	
+	public String shareCalendar(int calId, int userId){
+		sim.setOverallID("shareCalendar");
+		sim.setCalendarId(calId);
+		sim.setUserId(userId);
+		
+		String gsonString = gson.toJson(sim);
+		return sc.connect(gsonString);
+	}
+	
+	
+	
 	public String getEvents( int userId) {
 		sim.setOverallID("getEvents");
 		sim.setUserId(userId);
@@ -72,6 +102,12 @@ public class ObjectTranslator {
 		return sc.connect(gsonString);
 	}
 	
+	public String getQuote(){
+		
+		String gsonString = gson.toJson("getQuote");
+		
+		return sc.connect(gsonString);
+	}
 	
 	public String createEvent(String description, Timestamp startTimestamp, Timestamp endTimestamp, String location, String title ){
 		events.setOverallID("getEvent");

@@ -38,7 +38,9 @@ public class CalendarWeek extends JPanel{
 	public static final String PREVIOUS = "Previous";
 	public static final String NEXT = "Next";
 	public static final String QUOTE ="Quote";
+	public static final String SETTINGS ="Settings";
 	private JButton btnQuote;
+	private JButton btnSettings;
 
 
 
@@ -109,6 +111,11 @@ public class CalendarWeek extends JPanel{
 		p3.add(btnQuote);
 		btnQuote.addActionListener(actionController);
 		btnQuote.setActionCommand(QUOTE);
+		
+		btnSettings = new JButton("Calendar Settings");
+		p3.add(btnSettings);
+		btnSettings.addActionListener(actionController);
+		btnSettings.setActionCommand(SETTINGS);
 	}
 
 

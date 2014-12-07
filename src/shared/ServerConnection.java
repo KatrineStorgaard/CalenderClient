@@ -27,7 +27,7 @@ public class ServerConnection {
 				inFromServer = new BufferedReader(new InputStreamReader(
 						clientSocket.getInputStream()));
 				String modifiedSentence = inFromServer.readLine();
-				System.out.println("response: " + modifiedSentence);
+				//System.out.println("response: " + modifiedSentence);
 
 				String answer = crypt(modifiedSentence.getBytes());
 				clientSocket.close();
@@ -63,7 +63,7 @@ public class ServerConnection {
 			}
 
 			String encrypted = new String(b).trim();
-
+			System.out.println(encrypted);
 			return encrypted;
 		}	
 
