@@ -30,7 +30,7 @@ public class CalendarDay extends JPanel {
 	private JButton createEvent;
 	public static final String BACK = "back";
 	public static final String FORECAST = "foreCast"; 
-	public static final String SHOWNOTE = "note";
+	public static final String SHOWNOTE = "showNote";
 	public static final String CREATEEVENT = "createEvent";
 	public static final String SETNOTE = "setNote";
 	
@@ -78,7 +78,7 @@ public class CalendarDay extends JPanel {
 		Forecast.setActionCommand(FORECAST);
 		add(Forecast);
 		
-		showNote = new JButton("Note");
+		showNote = new JButton("Show Note");
 		showNote.setBounds(440, 82, 117, 29);
 		showNote.addActionListener(actionController);
 		showNote.setActionCommand(SHOWNOTE);

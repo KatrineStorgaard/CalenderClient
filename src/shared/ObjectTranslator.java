@@ -38,7 +38,6 @@ public class ObjectTranslator {
 	public String getEvents( int userId) {
 		sim.setOverallID("getEvents");
 		sim.setUserId(userId);
-		System.out.println(sim.toString());
 		String gsonString = gson.toJson(sim);
 		
 		return sc.connect(gsonString);
@@ -57,12 +56,9 @@ public class ObjectTranslator {
 	}
 	
 	public String getNote(int id){
-		
 		sim.setOverallID("getNote");
 		sim.setId(id);
-		
 		String gsonString = gson.toJson(sim);
-		
 		return sc.connect(gsonString);
 	}
 	

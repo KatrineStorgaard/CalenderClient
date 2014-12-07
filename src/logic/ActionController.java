@@ -2,16 +2,11 @@ package logic;
 
 import gui.CalendarDay;
 import gui.CalendarWeek;
-import gui.CreateEvent;
 import gui.Login;
 import gui._Screen;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -30,7 +25,6 @@ public class ActionController implements ActionListener {
 	
 	//Declaration of attributes
 	private _Screen screen;
-	private Controller co;
 	private int selectedDay;
 	private int selectedMonth;
 	Users currentUser = new Users();
@@ -44,7 +38,6 @@ public class ActionController implements ActionListener {
 	public ActionController(_Screen screen) {
 
 		this.screen = screen;
-		this.co = new Controller();
 		this.ot = new ObjectTranslator();
 		
 
@@ -113,17 +106,19 @@ public class ActionController implements ActionListener {
 				else if(cmd.equals(CalendarDay.FORECAST)){
 					
 					screen.getCalendarDay().removeTable();
-					screen.getCalendarDay().repaint();
+					
 					
 					String result = ot.getForecact(selectedMonth+1, selectedDay);
 					Forecast fc = gson.fromJson(result, Forecast.class);
-					screen.getCalendarDay().getTitle().setText("forecast for today");
-					screen.getCalendarDay().getDate().setText(fc.getDate());
+//					screen.getCalendarDay().getTitle().setText("forecast for today");
+//					screen.getCalendarDay().getDate().setText(fc.getDate());
 					screen.getCalendarDay().getDate().setVisible(true);
 					screen.getCalendarDay().getCelsius().setText(fc.getCelsius());
 					screen.getCalendarDay().getCelsius().setVisible(true);
-					screen.getCalendarDay().getDesc().setText(fc.getDesc());
+//					screen.getCalendarDay().getDesc().setText(fc.getDesc());
 					screen.getCalendarDay().getDesc().setVisible(true);
+					
+					screen.getCalendarDay().repaint();
 				}
 //				else if(cmd.equals(CalendarDay.CREATEEVENT)){
 //					screen.show(screen.CREATEEVENT);
@@ -164,12 +159,15 @@ public class ActionController implements ActionListener {
 					screen.getCalendarDay().removeTable();
 					screen.getCalendarDay().repaint();
 					
-					String result = ot.getNote(42);
+					String stringNoteId = JOptionPane.showInputDialog(null, "Insert calendar ID", null);
+					int noteId = Integer.parseInt(stringNoteId);
+					
+					String result = ot.getNote(noteId);
+					
 					Notes n = gson.fromJson(result, Notes.class);
 					
 					screen.getCalendarDay().getTitle().setText(n.getText());
 					screen.getCalendarDay().getSetNote().setVisible(true);
-				
 				}
 				else if(cmd.equals(CalendarDay.SETNOTE)){
 					screen.getCalendarDay().removeTable();
