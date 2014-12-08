@@ -1,4 +1,4 @@
-package gui;
+package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -83,14 +83,15 @@ public class CalendarWeek extends JPanel{
 
 		displayDate2(START_WEEK,START_YEAR);
 
-		p3 = new JPanel(new GridLayout(1,5));
+		p3 = new JPanel();
 		p3.setBackground(Color.PINK);
 		p3.setVisible(true);
+		p3.setLayout(new GridLayout(0, 7, 0, 0));
 		
 		back = new JButton("<< Previous");
+		p3.add(back);
 		back.addActionListener(actionController);
 		back.setActionCommand(PREVIOUS);
-		p3.add(back);
 		
 		ugenr = new JLabel("Ugenr:");
 		p3.add(ugenr);
@@ -112,7 +113,7 @@ public class CalendarWeek extends JPanel{
 		btnQuote.addActionListener(actionController);
 		btnQuote.setActionCommand(QUOTE);
 		
-		btnSettings = new JButton("Calendar Settings");
+		btnSettings = new JButton("Settings");
 		p3.add(btnSettings);
 		btnSettings.addActionListener(actionController);
 		btnSettings.setActionCommand(SETTINGS);

@@ -1,7 +1,7 @@
 import javax.swing.JFrame;
 
 import shared.ServerConnection;
-import gui._Screen;
+import view._Screen;
 
 public class MainTest {
 

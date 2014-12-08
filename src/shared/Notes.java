@@ -11,6 +11,20 @@ public class Notes {
 	private Timestamp created;
 	private boolean isActive;
 	private String overallID;
+	
+	public Notes(int noteID, String text, Timestamp created, int createdBy, boolean isActive, int eventID) {
+		super();
+		this.noteID = noteID;
+		this.text = text;
+		this.created = created;
+		this.createdBy = createdBy;
+		this.isActive = isActive;
+		this.id = eventID;
+	}
+	
+	public Notes(){
+		super();
+	}
 	public int getNoteID() {
 		return noteID;
 	}
@@ -53,6 +67,11 @@ public class Notes {
 	public void setOverallID(String overallID) {
 		this.overallID = overallID;
 	}
-	
+	public int getEventID() {
+		return id;
+	}
+	public void setEventID(int eventID) {
+		this.id = eventID;
+	}
 	
 }

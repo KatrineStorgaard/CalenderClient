@@ -13,6 +13,7 @@ public class ObjectTranslator {
 	SimpleCall sim = new SimpleCall();
 	Users currentUser  = new Users();
 	Calendar cal = new Calendar();
+	Notes notes = new Notes();
 
 
 //	public String checklog(String email, String password) {
@@ -29,9 +30,12 @@ public class ObjectTranslator {
 	public String Login(String email, String password){
 		System.out.println("login koerer");
 		currentUser.setEmail(email);
+		System.out.println(email);
 		currentUser.setPassword(password);
+		System.out.println(password);
+		System.out.println(email+password);
 		String gsonString = gson.toJson(currentUser);
-
+		
 		
 		return sc.connect(gsonString);		
 	}
@@ -83,7 +87,7 @@ public class ObjectTranslator {
 		return sc.connect(gsonString);
 	}
 	
-	public String getForecact(int month, int day){
+	public String getForecast(int month, int day){
 		
 		sim.setOverallID("getForecast");
 		sim.setYear(2014);
@@ -103,37 +107,50 @@ public class ObjectTranslator {
 	}
 	
 	public String getQuote(){
-		
-		String gsonString = gson.toJson("getQuote");
-		
-		return sc.connect(gsonString);
-	}
-	
-	public String createEvent(String description, Timestamp startTimestamp, Timestamp endTimestamp, String location, String title ){
-		events.setOverallID("getEvent");
-		events.setDescription(description);
-		events.setStartTimestamp(startTimestamp);
-		events.setEndTimestamp(endTimestamp);
-		events.setLocation(location);
-		events.setTitle(title);
-		events.setActive(true);
-		events.setOverallID("createEvent");
-		String gsonString = gson.toJson(events);
-		return sc.connect(gsonString);
-	}
-
-	public String createNote(int noteId, int id, int createdBy, String text) {
-		
-		sim.setOverallID("createNote");
-		sim.setNoteId(noteId);
-		sim.setId(id);
-		sim.setUserId(createdBy);
-		sim.setText(text);
-		
+		sim.setOverallID("getQuote");
 		String gsonString = gson.toJson(sim);
 		
 		return sc.connect(gsonString);
 	}
+	
+	public String createEvent( int createdby, String title, String description, Timestamp start, Timestamp end,  int calendarId ,String location  ){
+		events.setOverallID("createEvent");
+		events.setDescription(description);
+		events.setStartTimestamp(start);
+		events.setEndTimestamp(end);
+		events.setLocation(location);
+		events.setTitle(title);
+		System.out.println(createdby);
+		events.setCreatedBy(createdby);
+		events.setCalendarId(calendarId);
+		//System.out.println(description + start+end+location+title+createdBy+calendarId);
+		System.out.println(events.toString());
+		
+		String gsonString = gson.toJson(events, Events.class);
+		
+		return sc.connect(gsonString);
+	}
+
+	public String createNote(int id, int createdBy, String text) {
+		
+		notes.setOverallID("createNote");
+		notes.setCreatedBy(createdBy);
+		notes.setEventID(id);
+		notes.setText(text);
+		
+		String gsonString = gson.toJson(notes);
+		
+		return sc.connect(gsonString);
+	}
+	
+	public String deleteEvent(int eventId){
+		sim.setId(eventId);
+		
+		String gsonString = gson.toJson(sim);
+		return sc.connect(gsonString);
+		
+	}
+	
 	
 
 }

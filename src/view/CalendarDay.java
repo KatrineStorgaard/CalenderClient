@@ -1,4 +1,4 @@
-package gui;
+package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -25,14 +25,20 @@ public class CalendarDay extends JPanel {
 	private JTable resultTable;
 	private JButton Forecast;
 	private JButton showNote;
-	private JButton setNote;
 	private JTextField noteField;
 	private JButton createEvent;
+	private JLabel noteLbl;
+	private JButton updateNote;
+	
 	public static final String BACK = "back";
 	public static final String FORECAST = "foreCast"; 
 	public static final String SHOWNOTE = "showNote";
 	public static final String CREATEEVENT = "createEvent";
 	public static final String SETNOTE = "setNote";
+	public static final String UPDATENOTE = "updateNote";
+	private JButton setNote;
+	
+
 	
 	public CalendarDay (ActionController actionController){
 		setBackground(Color.PINK);
@@ -79,17 +85,10 @@ public class CalendarDay extends JPanel {
 		add(Forecast);
 		
 		showNote = new JButton("Show Note");
-		showNote.setBounds(440, 82, 117, 29);
+		showNote.setBounds(440, 113, 117, 29);
 		showNote.addActionListener(actionController);
 		showNote.setActionCommand(SHOWNOTE);
 		add(showNote);
-		
-		setNote = new JButton("Set Note");
-		setNote.setBounds(626, 23, 105, 29);
-		setNote.addActionListener(actionController);
-		setNote.setActionCommand(SETNOTE);
-		setNote.setVisible(false);
-		add(setNote);
 		
 		noteField = new JTextField();
 		noteField.setBounds(28, 57, 400, 100);
@@ -97,15 +96,37 @@ public class CalendarDay extends JPanel {
 		add(noteField);
 		
 		createEvent = new JButton("Create a event");
-		createEvent.setBounds(440, 113, 117, 29);
+		createEvent.setBounds(440, 79, 117, 29);
 		createEvent.addActionListener(actionController);
 		createEvent.setActionCommand(CREATEEVENT);
 		add(createEvent);
+		
+		noteLbl = new JLabel();
+		noteLbl.setBounds(157, 62, 61, 16);
+		add(noteLbl);
+		
+		updateNote = new JButton("Update note");
+		updateNote.setBounds(145, 150, 117, 29);
+		updateNote.addActionListener(actionController);
+		updateNote.setActionCommand(UPDATENOTE);
+		updateNote.setVisible(false);
+		add(updateNote);
+		
+		setNote = new JButton("Set Note");
+		setNote.setBounds(440, 138, 117, 29);
+		setNote.addActionListener(actionController);
+		setNote.setActionCommand(SETNOTE);
+		setNote.setVisible(false);
+		add(setNote);
 		
 	}
 	
 	public void removeNotefield(){
 		this.remove(noteField);
+	}
+	
+	public void removeNoteLbl(){
+		this.remove(noteLbl);
 	}
 
 	public void addTable(Object[][] data,String[] columnNames){
@@ -118,8 +139,6 @@ public class CalendarDay extends JPanel {
 		 resultTable = new JTable(data, columnNames);
 		 resultTable.setPreferredScrollableViewportSize(new Dimension(800,70));
 		 resultTable.setFillsViewportHeight(true);
-		 resultTable.setEnabled(false);
-		 
 		 
 		 scrollPane = new JScrollPane(resultTable);
 		 scrollPane.setBounds(26, 30, 398, 120);
@@ -179,7 +198,7 @@ public class CalendarDay extends JPanel {
 		return showNote;
 	}
 
-	public void setShowNote(JButton btnshowNote) {
+	public void setShowNote(JButton showNote) {
 		this.showNote = showNote;
 	}
 	public JTextField getNoteField(){
@@ -200,5 +219,23 @@ public class CalendarDay extends JPanel {
 	public void setCreateEvent(JButton createEvent){
 		this.createEvent = createEvent;
 	}
+
+	public JLabel getNoteLbl() {
+		return noteLbl;
+	}
+
+	public void setNoteLbl(JLabel noteLbl) {
+		this.noteLbl = noteLbl;
+	}
+
+	public JButton getUpdateNote() {
+		return updateNote;
+	}
+
+	public void setUpdateNote(JButton updateNote) {
+		this.updateNote = updateNote;
+	}
+
+	
 	
 }

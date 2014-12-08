@@ -1,14 +1,10 @@
 package logic;
 
-import gui.CalendarDay;
-import gui.CalendarSettings;
-import gui.CalendarWeek;
-import gui.Login;
-import gui._Screen;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.JOptionPane;
 
@@ -18,10 +14,15 @@ import com.google.gson.GsonBuilder;
 import shared.Events;
 import shared.Forecast;
 import shared.Notes;
-import shared.ObjectTranslator;
 import shared.ServerConnection;
 import shared.Users;
 import shared.Calendar;
+import view.CalendarDay;
+import view.CalendarSettings;
+import view.CalendarWeek;
+import view.EventPanel;
+import view.Login;
+import view._Screen;
 
 public class ActionController implements ActionListener {
 
@@ -29,9 +30,10 @@ public class ActionController implements ActionListener {
 	private _Screen screen;
 	private int selectedDay;
 	private int selectedMonth;
+	private int selectedEvent;
 	Users currentUser = new Users();
 	ServerConnection sc = new ServerConnection();
-	ObjectTranslator ot = new ObjectTranslator();
+	ClientController cc = new ClientController();
 	Events currentEvent = new Events();
 	Gson gson = new GsonBuilder().create();
 	ArrayList<Events> events = new ArrayList<Events>();
@@ -41,7 +43,6 @@ public class ActionController implements ActionListener {
 	public ActionController(_Screen screen) {
 
 		this.screen = screen;
-		this.ot = new ObjectTranslator();
 
 
 	}// end constructor
@@ -61,16 +62,16 @@ public class ActionController implements ActionListener {
 			String email = screen.getLogin().getTxtremail().getText();
 			String password = screen.getLogin().getPasswordField().getText();
 
-			String reply = ot.Login(email, password);
+			String reply = cc.Login(email, password);
 
 			if (!reply.equals("invalid")){
 
 				currentUser = (Users) gson.fromJson(reply, Users.class);
-
+				
 				screen.setTitle("Week view");
 				screen.show(screen.CALENDARWEEK);
 
-				String result = ot.getEvents(currentUser.getUserId());
+				String result = cc.getEvents(currentUser.getUserId());
 
 				Events [] event = gson.fromJson(result, Events[].class);
 
@@ -79,13 +80,16 @@ public class ActionController implements ActionListener {
 					events.add(event[i]);
 				}
 
-				String respons = ot.getCalendars(currentUser.getUserId());
+				String respons = cc.getCalendars(currentUser.getUserId());
 
 				Calendar[] calendar = gson.fromJson(respons, Calendar[].class);
 
 				for(int i = 0; i < calendar.length; i++){
 					calendars.add(calendar[i]);
 				}
+				refreshEvents();
+				refreshCalendars();
+				
 			}
 
 		} 
@@ -119,6 +123,7 @@ public class ActionController implements ActionListener {
 			screen.show(screen.CALENDARWEEK);
 			screen.setTitle("Week view");
 			screen.getCalendarDay().removeNotefield();
+			screen.getCalendarDay().removeNoteLbl();
 		}
 		else if(cmd.equals(CalendarWeek.SETTINGS)){
 			screen.show(screen.CALENDARSETTINGS);
@@ -127,7 +132,7 @@ public class ActionController implements ActionListener {
 
 		else if(cmd.equals(CalendarWeek.QUOTE))
 		{
-			JOptionPane.showMessageDialog( screen, sc.connect("getQuote"));
+			JOptionPane.showMessageDialog( screen, cc.getQuote());
 		}
 
 		else if(cmd.equals(CalendarDay.FORECAST)){
@@ -135,10 +140,10 @@ public class ActionController implements ActionListener {
 			screen.getCalendarDay().removeTable();
 
 
-			String result = ot.getForecact(selectedMonth+1, selectedDay);
+			String result = cc.getForecast(selectedMonth+1, selectedDay);
 			Forecast fc = gson.fromJson(result, Forecast.class);
-			//					screen.getCalendarDay().getTitle().setText("forecast for today");
-			//					screen.getCalendarDay().getDate().setText(fc.getDate());
+			screen.getCalendarDay().getTitle().setText("forecast for today");
+			screen.getCalendarDay().getDate().setText(fc.getDate());
 			screen.getCalendarDay().getDate().setVisible(true);
 			screen.getCalendarDay().getCelsius().setText(fc.getCelsius());
 			screen.getCalendarDay().getCelsius().setVisible(true);
@@ -147,73 +152,93 @@ public class ActionController implements ActionListener {
 
 			screen.getCalendarDay().repaint();
 		}
-		//				else if(cmd.equals(CalendarDay.CREATEEVENT)){
-		//					screen.show(screen.CREATEEVENT);
-		//				}
-		//				else if(cmd.equals(CreateEvent.CREATEEVENTSUBMIT)){
-		//					String title = screen.getCreateEvent().getTitle().getText();
-		//					String location = screen.getCreateEvent().getaLocation().getText();
-		//					String description = screen.getCreateEvent().getDescription().getText();
-		//					String start = screen.getCreateEvent().getStart().getText();
-		//					String end = screen.getCreateEvent().getEnd().getText();
-		//					System.out.println(title+" "+location+" "+description+" "+start+" "+end );
-		//					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
-		//					Date parsedDate = null;
-		//					try {
-		//						parsedDate = (Date) dateFormat.parse(start);
-		//					} catch (ParseException e2) {
-		//						// TODO Auto-generated catch block
-		//						e2.printStackTrace();
-		//					}
-		//					Timestamp startTimestamp = new Timestamp(parsedDate.getTime());
-		//					System.out.println(startTimestamp);
-		//					SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
-		//					Date parsedDate1 = null;
-		//					try {
-		//						parsedDate1 = (Date) dateFormat1.parse(end);
-		//					} catch (ParseException e1) {
-		//						// TODO Auto-generated catch block
-		//						e1.printStackTrace();
-		//					}
-		//					Timestamp endTimestamp = new Timestamp(parsedDate1.getTime());
-		//					System.out.println(endTimestamp);
-		//				  ot.createEvent(description, startTimestamp, endTimestamp, location, title); 
-		//					}
+		else if(cmd.equals(CalendarDay.CREATEEVENT)){
+			screen.show(screen.EVENTPANEL);
+		}
+		else if(cmd.equals(EventPanel.CREATEEVENTSUBMIT)){
+			Date startDate = new Date();
+			startDate.setYear(screen.getCalendarWeek().START_YEAR);
+			startDate.setMonth(selectedMonth);
+			startDate.setDate(selectedDay);
+			startDate.setHours(Integer.parseInt(screen.getEventPanel().getStartHour().getText()));
+			startDate.setMinutes(Integer.parseInt(screen.getEventPanel().getStartMinuts().getText()));
+			Timestamp startTimestamp = new Timestamp(startDate.getTime());
+			
+			Date endDate = new Date();
+			endDate.setYear(screen.getCalendarWeek().START_YEAR);
+			endDate.setMonth(selectedMonth);
+			endDate.setDate(selectedDay);
+			endDate.setHours(Integer.parseInt(screen.getEventPanel().getEndHour().getText()));
+			endDate.setMinutes(Integer.parseInt(screen.getEventPanel().getEndMinuts().getText()));
+			Timestamp endTimestamp = new Timestamp(endDate.getTime());
+			
+			cc.createEvent(currentUser.getUserId(), screen.getEventPanel().getTitle().getText(), screen.getEventPanel().getDescription().getText(), startTimestamp, endTimestamp, Integer.parseInt(screen.getEventPanel().getCalendarID().getText()), screen.getEventPanel().getLocationField().getText());
+		
+			screen.show(screen.CALENDARWEEK);
+			screen.getEventPanel().clearFields();
 
+			refreshEvents();
+		}
+		else if(cmd.equals(EventPanel.DELETEEVENTSUBMIT)){
+			
+			String eventIdString = JOptionPane.showInputDialog(null, "Insert EventID", null);
+			System.out.println(cc.deleteEvent(Integer.parseInt(eventIdString)));
+			
+		}
 
 		else if(cmd.equals(CalendarDay.SHOWNOTE)){
 
 			screen.getCalendarDay().removeTable();
 			screen.getCalendarDay().repaint();
-
-			String stringNoteId = JOptionPane.showInputDialog(null, "Insert calendar ID", null);
-			int noteId = Integer.parseInt(stringNoteId);
-
-			String result = ot.getNote(noteId);
+			
+			String stringEventId = JOptionPane.showInputDialog(null, "Insert event ID", null);
+			
+			selectedEvent = Integer.parseInt(stringEventId); 
+			
+			String result = cc.getNote(selectedEvent);
 
 			Notes n = gson.fromJson(result, Notes.class);
 
-			screen.getCalendarDay().getTitle().setText(n.getText());
+			screen.getCalendarDay().getTitle().setText("Note for the Event");
+			
 			screen.getCalendarDay().getSetNote().setVisible(true);
+			
+			screen.getCalendarDay().getNoteLbl().setVisible(true);
+			
+			screen.getCalendarDay().getNoteLbl().setText(n.getText());
 		}
 		else if(cmd.equals(CalendarDay.SETNOTE)){
 			screen.getCalendarDay().removeTable();
 			screen.getCalendarDay().repaint();
 
+			screen.getCalendarDay().getNoteField().setText(screen.getCalendarDay().getNoteLbl().getText());
+			screen.getCalendarDay().getNoteLbl().setText("");
+			
 			screen.getCalendarDay().getNoteField().setVisible(true);
-			screen.getCalendarDay().getNoteField().setText(screen.getCalendarDay().getTitle().getText());
-
-			System.out.println("ID: "+currentUser.getUserId() );
-
-			String result = ot.createNote(1337, 42, 1, screen.getCalendarDay().getNoteField().getText());
-
-			System.out.println(result);
+			
+			screen.getCalendarDay().getUpdateNote().setVisible(true);
+			
+			screen.getCalendarDay().repaint();
 		}
-		
+		else if(cmd.equals(CalendarDay.UPDATENOTE)){
+			
+			screen.getCalendarDay().getNoteField().setVisible(false);
+			screen.getCalendarDay().getUpdateNote().setVisible(false);
+			
+			
+			String newNote = screen.getCalendarDay().getNoteField().getText();
+			
+			screen.getCalendarDay().getNoteLbl().setText(newNote);
+			
+			cc.createNote(selectedEvent, currentUser.getUserId(), newNote);
+			
+			
+		}
+
 		else if(cmd.equals(CalendarSettings.CREATECAL)){
 			String calTitle = JOptionPane.showInputDialog(null, "Title", null);
-			if(ot.createCalendar(calTitle, currentUser.getUserId()).equals("calendar added")){
-				System.out.println("added");
+			if(cc.createCalendar(calTitle, currentUser.getUserId()).equals("calendar added")){
+				JOptionPane.showMessageDialog(null, "Calendar added");
 			}
 		}
 
@@ -221,8 +246,8 @@ public class ActionController implements ActionListener {
 			String calIdString = JOptionPane.showInputDialog(null, "Insert ID", null);
 			int calIdInt = Integer.parseInt(calIdString);
 
-			if(ot.deleteCalendar(calIdInt, currentUser.getUserId()).equals("calendar deleted")){
-				System.out.println("deleted");	
+			if(cc.deleteCalendar(calIdInt, currentUser.getUserId()).equals("calendar deleted")){
+				JOptionPane.showMessageDialog(null, "Calendar deleted");
 			}
 		}
 
@@ -233,8 +258,8 @@ public class ActionController implements ActionListener {
 			int calIdInt = Integer.parseInt(calIdString);
 			int userIdInt = Integer.parseInt(userIdString);
 
-			if(ot.shareCalendar(calIdInt, userIdInt).equals("calendar shared")){
-				System.out.println("shared");	
+			if(cc.shareCalendar(calIdInt, userIdInt).equals("calendar shared")){
+				JOptionPane.showMessageDialog(null, "Calendar shared");
 			}
 		}
 		else if (cmd.equals(CalendarSettings.BACK)){
@@ -345,6 +370,30 @@ public class ActionController implements ActionListener {
 
 		screen.getCalendarSettings().addTable(data, columnNames);
 
-	}// end actionPerformed
+	}
+	public void refreshEvents(){
+
+		String result = cc.getEvents(currentUser.getUserId());
+
+		Events[] event = gson.fromJson(result, Events[].class);
+
+		for(int i = 0; i < event.length; i++) {
+
+			events.add(event[i]);
+		}	
+	}
+	
+public void refreshCalendars(){
+		
+		String response = cc.getCalendars(currentUser.getUserId());
+		System.out.println(response);
+		
+		Calendar[] calendar = gson.fromJson(response, Calendar[].class);
+		
+		for(int i = 0; i < calendar.length; i++){
+			
+			calendars.add(calendar[i]);
+		}
+	}
 }// end ActionController class
 

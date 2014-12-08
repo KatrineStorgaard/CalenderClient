@@ -8,7 +8,7 @@ public class SimpleCall implements Serializable{
 private final long serialVersionUID = 5L;
 private String overallID;
 private int id;
-private String eventid;
+private String eventId;
 private int userId;
 private Timestamp date;
 private int day;
@@ -33,11 +33,11 @@ public int getId() {
 public void setId(int id) {
 	this.id = id;
 }
-public String getEventid() {
-	return eventid;
+public String getEventId() {
+	return eventId;
 }
-public void setEventid(String eventid) {
-	this.eventid = eventid;
+public void setEventid(String eventId) {
+	this.eventId = eventId;
 }
 public int getUserId() {
 	return userId;
@@ -94,7 +94,7 @@ public void setCalendarId(int calendarId) {
 @Override
 public String toString() {
 	return "SimpleCall [serialVersionUID=" + serialVersionUID + ", overallID="
-			+ overallID + ", id=" + id + ", eventid=" + eventid + ", userId="
+			+ overallID + ", id=" + id + ", eventid=" + eventId + ", userId="
 			+ userId + ", date=" + date + ", day=" + day + ", month=" + month
 			+ ", year=" + year + "]";
 }

@@ -1,4 +1,4 @@
-package gui;
+package view;
 
 import java.awt.CardLayout;
 
@@ -22,7 +22,7 @@ public class _Screen extends JFrame {
 	private CardLayout c;
 	private CalendarWeek calendarWeek;
 	private CalendarDay calendarDay;
-	private CreateEvent createEvent;
+	private EventPanel eventPanel;
 	private CreateNote createNote;
 	private CalendarSettings calendarSettings;
 
@@ -30,7 +30,7 @@ public class _Screen extends JFrame {
 	public static final String LOGIN = "login";
 	public static final String CALENDARWEEK ="calendarWeek";
 	public static final String CALENDARDAY = "calendarDay";
-	public static final String CREATEEVENT = "createEvent";
+	public static final String EVENTPANEL = "eventPanel";
 	public static final String CREATENOTE = "createNote";
 	public static final String CALENDARSETTINGS = "calendarSettings";
 
@@ -52,14 +52,14 @@ public class _Screen extends JFrame {
 		calendarWeek = new CalendarWeek(actionController);
 		calendarDay = new CalendarDay(actionController);
 		createNote = new CreateNote(actionController);
-		createEvent = new CreateEvent(actionController);	
+		eventPanel = new EventPanel(actionController);	
 		calendarSettings = new CalendarSettings(actionController);
 
 		//adding JPanels to the contentPane
 		contentPane.add(login, LOGIN);
 		contentPane.add(calendarWeek, CALENDARWEEK);
 		contentPane.add(createNote, CREATENOTE);
-		contentPane.add(createEvent, CREATEEVENT);
+		contentPane.add(eventPanel, EVENTPANEL);
 		contentPane.add(calendarDay, CALENDARDAY);
 		contentPane.add(calendarSettings, CALENDARSETTINGS);
 		
@@ -97,8 +97,8 @@ public class _Screen extends JFrame {
 		return calendarDay;
 	}
 
-	public CreateEvent getCreateEvent(){
-		return createEvent;
+	public EventPanel getEventPanel(){
+		return eventPanel;
 		
 	}
 	
