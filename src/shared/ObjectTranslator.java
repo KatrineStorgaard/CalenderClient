@@ -14,18 +14,6 @@ public class ObjectTranslator {
 	Users currentUser  = new Users();
 	Calendar cal = new Calendar();
 	Notes notes = new Notes();
-
-
-//	public String checklog(String email, String password) {
-//		users.setEmail(email);
-//		users.setPassword(password);
-//		//users.setActive(true);
-//		users.setOverallID("logIn");
-//		String gsonString = gson.toJson(users);
-//		System.out.println(gsonString);
-//		
-//		return sc.connect(gsonString);		
-//	}
 	
 	public String Login(String email, String password){
 		System.out.println("login koerer");
@@ -144,9 +132,11 @@ public class ObjectTranslator {
 	}
 	
 	public String deleteEvent(int eventId){
+		sim.setOverallID("deleteEvent");
 		sim.setId(eventId);
 		
 		String gsonString = gson.toJson(sim);
+		
 		return sc.connect(gsonString);
 		
 	}

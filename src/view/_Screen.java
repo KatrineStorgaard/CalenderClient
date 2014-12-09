@@ -12,8 +12,8 @@ public class _Screen extends JFrame {
 
 
 	//Declaration of global style constants
-	public static final int WIDTH = 600;
-	public static final int HEIGHT = 250;
+	public static final int WIDTH = 900;
+	public static final int HEIGHT = 400;
 
 	//Declaration of attributes
 	private ActionController actionController;
@@ -23,7 +23,6 @@ public class _Screen extends JFrame {
 	private CalendarWeek calendarWeek;
 	private CalendarDay calendarDay;
 	private EventPanel eventPanel;
-	private CreateNote createNote;
 	private CalendarSettings calendarSettings;
 
 	// Declaration of constants
@@ -31,7 +30,6 @@ public class _Screen extends JFrame {
 	public static final String CALENDARWEEK ="calendarWeek";
 	public static final String CALENDARDAY = "calendarDay";
 	public static final String EVENTPANEL = "eventPanel";
-	public static final String CREATENOTE = "createNote";
 	public static final String CALENDARSETTINGS = "calendarSettings";
 
 	
@@ -51,14 +49,12 @@ public class _Screen extends JFrame {
 		login = new Login(actionController);
 		calendarWeek = new CalendarWeek(actionController);
 		calendarDay = new CalendarDay(actionController);
-		createNote = new CreateNote(actionController);
 		eventPanel = new EventPanel(actionController);	
 		calendarSettings = new CalendarSettings(actionController);
 
 		//adding JPanels to the contentPane
 		contentPane.add(login, LOGIN);
 		contentPane.add(calendarWeek, CALENDARWEEK);
-		contentPane.add(createNote, CREATENOTE);
 		contentPane.add(eventPanel, EVENTPANEL);
 		contentPane.add(calendarDay, CALENDARDAY);
 		contentPane.add(calendarSettings, CALENDARSETTINGS);
@@ -100,10 +96,6 @@ public class _Screen extends JFrame {
 	public EventPanel getEventPanel(){
 		return eventPanel;
 		
-	}
-	
-	public CreateNote getCreateNote(){
-		return createNote;
 	}
 	
 	public CalendarSettings getCalendarSettings(){

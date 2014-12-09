@@ -12,7 +12,6 @@ import logic.ActionController;
 import java.awt.Color;
 
 public class CalendarSettings extends JPanel{
-	private ActionController actionController;
 	private JLabel title;
 	private JButton back;
 	private JScrollPane scrollPane;
@@ -39,19 +38,19 @@ public class CalendarSettings extends JPanel{
 		add(back);
 		
 		JButton createCal = new JButton("Create Calendar");
-		createCal.setBounds(301, 56, 143, 29);
+		createCal.setBounds(739, 59, 143, 29);
 		createCal.addActionListener(actionController);
 		createCal.setActionCommand(CREATECAL);
 		add(createCal);
 				
 		JButton deleteCal = new JButton("Delete Calendar");
-		deleteCal.setBounds(301, 98, 143, 29);
+		deleteCal.setBounds(739, 100, 143, 29);
 		deleteCal.addActionListener(actionController);
 		deleteCal.setActionCommand(DELTECAL);
 		add(deleteCal);
 		
 		JButton shareCal = new JButton("Share Calendar");
-		shareCal.setBounds(301, 137, 143, 29);
+		shareCal.setBounds(739, 141, 143, 29);
 		shareCal.addActionListener(actionController);
 		shareCal.setActionCommand(SHARECAL);
 		add(shareCal);

@@ -4,15 +4,13 @@ import java.sql.Timestamp;
 
 //import shared.Events;
 import shared.ObjectTranslator;
-import shared.Users;
 
 public class ClientController {
 	
 	
 	
 	private ObjectTranslator ot = new ObjectTranslator();
-	Users currentUser = new Users();
-//	private Events ec;
+
 
 	public ClientController() {
 		

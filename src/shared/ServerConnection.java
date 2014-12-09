@@ -12,7 +12,6 @@ public class ServerConnection {
 	private DataOutputStream outToServer;
 
 	public String connect(String gsonString) {
-		Configurations cf = new Configurations();
 
 		try {
 			clientSocket = new Socket("localhost", 8888);

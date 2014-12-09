@@ -64,32 +64,18 @@ public class ActionController implements ActionListener {
 
 			String reply = cc.Login(email, password);
 
+			//If user is logged in
 			if (!reply.equals("invalid")){
 
 				currentUser = (Users) gson.fromJson(reply, Users.class);
-				
+
 				screen.setTitle("Week view");
 				screen.show(screen.CALENDARWEEK);
 
-				String result = cc.getEvents(currentUser.getUserId());
-
-				Events [] event = gson.fromJson(result, Events[].class);
-
-				for ( int i = 0; i<event.length; i ++){
-
-					events.add(event[i]);
-				}
-
-				String respons = cc.getCalendars(currentUser.getUserId());
-
-				Calendar[] calendar = gson.fromJson(respons, Calendar[].class);
-
-				for(int i = 0; i < calendar.length; i++){
-					calendars.add(calendar[i]);
-				}
+				//fetching events
 				refreshEvents();
 				refreshCalendars();
-				
+
 			}
 
 		} 
@@ -156,6 +142,8 @@ public class ActionController implements ActionListener {
 			screen.show(screen.EVENTPANEL);
 		}
 		else if(cmd.equals(EventPanel.CREATEEVENTSUBMIT)){
+			
+			//setting startTime
 			Date startDate = new Date();
 			startDate.setYear(screen.getCalendarWeek().START_YEAR);
 			startDate.setMonth(selectedMonth);
@@ -163,7 +151,8 @@ public class ActionController implements ActionListener {
 			startDate.setHours(Integer.parseInt(screen.getEventPanel().getStartHour().getText()));
 			startDate.setMinutes(Integer.parseInt(screen.getEventPanel().getStartMinuts().getText()));
 			Timestamp startTimestamp = new Timestamp(startDate.getTime());
-			
+
+			//setting endTime
 			Date endDate = new Date();
 			endDate.setYear(screen.getCalendarWeek().START_YEAR);
 			endDate.setMonth(selectedMonth);
@@ -171,40 +160,49 @@ public class ActionController implements ActionListener {
 			endDate.setHours(Integer.parseInt(screen.getEventPanel().getEndHour().getText()));
 			endDate.setMinutes(Integer.parseInt(screen.getEventPanel().getEndMinuts().getText()));
 			Timestamp endTimestamp = new Timestamp(endDate.getTime());
-			
+
 			cc.createEvent(currentUser.getUserId(), screen.getEventPanel().getTitle().getText(), screen.getEventPanel().getDescription().getText(), startTimestamp, endTimestamp, Integer.parseInt(screen.getEventPanel().getCalendarID().getText()), screen.getEventPanel().getLocationField().getText());
-		
+
 			screen.show(screen.CALENDARWEEK);
 			screen.getEventPanel().clearFields();
 
 			refreshEvents();
 		}
 		else if(cmd.equals(EventPanel.DELETEEVENTSUBMIT)){
+
+			String eventIdString = JOptionPane.showInputDialog(null, "Insert DEl-EventID", null);
+			cc.deleteEvent(Integer.parseInt(eventIdString));
+
+			refreshEvents();
+			screen.getEventPanel().clearFields();
 			
-			String eventIdString = JOptionPane.showInputDialog(null, "Insert EventID", null);
-			System.out.println(cc.deleteEvent(Integer.parseInt(eventIdString)));
-			
+			screen.show(screen.CALENDARWEEK);
+
+		}
+		
+		else if(cmd.equals(EventPanel.CANCEL)){
+			screen.show(screen.CALENDARDAY);
 		}
 
 		else if(cmd.equals(CalendarDay.SHOWNOTE)){
 
 			screen.getCalendarDay().removeTable();
 			screen.getCalendarDay().repaint();
-			
+
 			String stringEventId = JOptionPane.showInputDialog(null, "Insert event ID", null);
-			
+
 			selectedEvent = Integer.parseInt(stringEventId); 
-			
+
 			String result = cc.getNote(selectedEvent);
 
 			Notes n = gson.fromJson(result, Notes.class);
 
 			screen.getCalendarDay().getTitle().setText("Note for the Event");
-			
+
 			screen.getCalendarDay().getSetNote().setVisible(true);
-			
+
 			screen.getCalendarDay().getNoteLbl().setVisible(true);
-			
+
 			screen.getCalendarDay().getNoteLbl().setText(n.getText());
 		}
 		else if(cmd.equals(CalendarDay.SETNOTE)){
@@ -213,33 +211,38 @@ public class ActionController implements ActionListener {
 
 			screen.getCalendarDay().getNoteField().setText(screen.getCalendarDay().getNoteLbl().getText());
 			screen.getCalendarDay().getNoteLbl().setText("");
-			
+
 			screen.getCalendarDay().getNoteField().setVisible(true);
-			
+
 			screen.getCalendarDay().getUpdateNote().setVisible(true);
-			
+
 			screen.getCalendarDay().repaint();
 		}
 		else if(cmd.equals(CalendarDay.UPDATENOTE)){
-			
+
 			screen.getCalendarDay().getNoteField().setVisible(false);
 			screen.getCalendarDay().getUpdateNote().setVisible(false);
-			
-			
+
+
 			String newNote = screen.getCalendarDay().getNoteField().getText();
-			
+
 			screen.getCalendarDay().getNoteLbl().setText(newNote);
-			
+
 			cc.createNote(selectedEvent, currentUser.getUserId(), newNote);
-			
-			
+
+
 		}
 
 		else if(cmd.equals(CalendarSettings.CREATECAL)){
 			String calTitle = JOptionPane.showInputDialog(null, "Title", null);
 			if(cc.createCalendar(calTitle, currentUser.getUserId()).equals("calendar added")){
+				screen.getCalendarDay().removeTable();
+				screen.getCalendarDay().repaint();
 				JOptionPane.showMessageDialog(null, "Calendar added");
 			}
+			refreshCalendars();
+			showTable2();
+			screen.getCalendarDay().repaint();
 		}
 
 		else if(cmd.equals(CalendarSettings.DELTECAL)){
@@ -247,8 +250,14 @@ public class ActionController implements ActionListener {
 			int calIdInt = Integer.parseInt(calIdString);
 
 			if(cc.deleteCalendar(calIdInt, currentUser.getUserId()).equals("calendar deleted")){
+				screen.getCalendarDay().removeTable();
+				screen.getCalendarDay().repaint();
 				JOptionPane.showMessageDialog(null, "Calendar deleted");
 			}
+			refreshCalendars();
+			showTable2();
+			screen.getCalendarDay().repaint();
+
 		}
 
 		else if(cmd.equals(CalendarSettings.SHARECAL)){
@@ -270,11 +279,14 @@ public class ActionController implements ActionListener {
 
 
 		else {
+			//getting text from button
 			String currentDay = cmd;
 
+			//getting selected month 
 			int iMid = currentDay.indexOf(screen.getCalendarWeek().MONTHDAYSEPARATOR);
 			String monthString = currentDay.substring(0, iMid);
 
+			//setting text from button to specfic month
 			int iMonth = 0;
 			if(monthString.equals("Jan")){
 				iMonth = 0;
@@ -302,6 +314,7 @@ public class ActionController implements ActionListener {
 				iMonth = 11;
 			}
 
+			//setting selected 
 			int sDay = Integer.parseInt(currentDay.substring(iMid+1, currentDay.length()));
 			selectedDay = sDay;
 			selectedMonth = iMonth;
@@ -326,6 +339,7 @@ public class ActionController implements ActionListener {
 			}
 		}
 
+		// creates an object with the column names
 		String [] columnNames = { "Start", "End", "Cal ID", "Event ID", "Title", "Description", "Location"};
 
 		Object [][] data = new Object [space][7];
@@ -373,6 +387,8 @@ public class ActionController implements ActionListener {
 	}
 	public void refreshEvents(){
 
+		events.removeAll(events);
+		
 		String result = cc.getEvents(currentUser.getUserId());
 
 		Events[] event = gson.fromJson(result, Events[].class);
@@ -382,16 +398,18 @@ public class ActionController implements ActionListener {
 			events.add(event[i]);
 		}	
 	}
-	
-public void refreshCalendars(){
+
+	public void refreshCalendars(){
+
+		calendars.removeAll(calendars);
 		
 		String response = cc.getCalendars(currentUser.getUserId());
 		System.out.println(response);
-		
+
 		Calendar[] calendar = gson.fromJson(response, Calendar[].class);
-		
+
 		for(int i = 0; i < calendar.length; i++){
-			
+
 			calendars.add(calendar[i]);
 		}
 	}

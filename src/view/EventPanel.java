@@ -72,6 +72,7 @@ public class EventPanel extends JPanel{
 		
 		cancel = new JButton("Cancel");
 		cancel.setBounds(313, 251, 117, 29);
+		cancel.addActionListener(actionController);
 		cancel.setActionCommand(CANCEL);
 		add(cancel);
 		

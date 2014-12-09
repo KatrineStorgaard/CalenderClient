@@ -14,7 +14,6 @@ import logic.ActionController;
 public class Login extends JPanel {
 
 	//Declaration of attributes
-	private ActionController actionController;
 	private JTextField txtremail;
 	private JPasswordField passwordField;
 	private JButton btnLogin;
@@ -23,6 +22,7 @@ public class Login extends JPanel {
 	private JLabel lblBackground;
 	private JLabel lblBTCLogo;
 	private JLabel lblCBSLogo;
+	private ActionController actionController;
 	
 	// Declaration of panel constants
 	public static final String LOGINSUBMIT  = "loginSubmit";

@@ -16,9 +16,7 @@ import logic.ActionController;
 
 public class CalendarWeek extends JPanel{
 
-	private CalendarWeek wk;
 	private ActionController actionController;
-	private _Screen screen;
 	GregorianCalendar cal = (GregorianCalendar) GregorianCalendar.getInstance();
 	GregorianCalendar cal2;
 	private JButton[] button = new JButton[7];
@@ -48,7 +46,6 @@ public class CalendarWeek extends JPanel{
 	{
 
 		this.actionController = actionController;
-		ServerConnection sc = new ServerConnection();
 
 		START_WEEK = cal.get(GregorianCalendar.WEEK_OF_YEAR);
 		START_YEAR = cal.get(GregorianCalendar.YEAR);
