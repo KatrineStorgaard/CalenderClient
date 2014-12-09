@@ -174,7 +174,7 @@ public class ActionController implements ActionListener {
 		else if(cmd.equals(EventPanel.CANCEL)){
 			screen.show(screen.CALENDARDAY);
 		}
-
+ 
 		else if(cmd.equals(CalendarDay.SHOWNOTE)){
 
 			screen.getCalendarDay().removeTable();
@@ -195,33 +195,32 @@ public class ActionController implements ActionListener {
 			screen.getCalendarDay().getNoteLbl().setVisible(true);
 
 			screen.getCalendarDay().getNoteLbl().setText(n.getText());
+			
+			screen.getCalendarDay().repaint();
 		}
 		else if(cmd.equals(CalendarDay.SETNOTE)){
 			screen.getCalendarDay().removeTable();
 			screen.getCalendarDay().repaint();
 
-			screen.getCalendarDay().getNoteField().setText(screen.getCalendarDay().getNoteLbl().getText());
-			screen.getCalendarDay().getNoteLbl().setText("");
 
-			screen.getCalendarDay().getNoteField().setVisible(true);
-
-			screen.getCalendarDay().getUpdateNote().setVisible(true);
-
-			screen.getCalendarDay().repaint();
-		}
-		else if(cmd.equals(CalendarDay.UPDATENOTE)){
-
-			screen.getCalendarDay().getNoteField().setVisible(false);
-			screen.getCalendarDay().getUpdateNote().setVisible(false);
-
-
-			String newNote = screen.getCalendarDay().getNoteField().getText();
-
-			screen.getCalendarDay().getNoteLbl().setText(newNote);
-
+			String newNote = JOptionPane.showInputDialog(null, "Insert Note", null);
+			
 			cc.createNote(selectedEvent, currentUser.getUserId(), newNote);
-
-
+			
+			screen.getCalendarDay().repaint();
+			
+			screen.getCalendarDay().getNoteLbl().setText(newNote);
+			
+			
+			screen.getCalendarDay().repaint();
+				
+		}
+		else if(cmd.equals(CalendarDay.DELETENOTE)){
+			
+			
+			cc.createNote(selectedEvent, currentUser.getUserId(), "");
+			screen.getCalendarDay().getNoteLbl().setText("");
+			JOptionPane.showMessageDialog(null, "Note deleted");
 		}
 
 		else if(cmd.equals(CalendarSettings.CREATECAL)){

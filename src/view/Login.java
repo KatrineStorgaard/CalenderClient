@@ -45,7 +45,7 @@ public class Login extends JPanel {
 		lblLogin.setBounds(282, 60, 35, 16);
 		add(lblLogin);
 		
-		txtremail = new JTextField("dafr13ab@student.cbs.dk");
+		txtremail = new JTextField("Indtast din CBS email");
 		txtremail.setBounds(175, 111, 250, 29);
 		add(txtremail);
 		

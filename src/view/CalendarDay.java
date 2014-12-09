@@ -26,6 +26,7 @@ public class CalendarDay extends JPanel {
 	private JLabel noteLbl;
 	private JButton updateNote;
 	private JButton setNote;	
+	private JButton deleteNote;
 	
 	public static final String BACK = "back";
 	public static final String FORECAST = "foreCast"; 
@@ -33,6 +34,7 @@ public class CalendarDay extends JPanel {
 	public static final String CREATEEVENT = "createEvent";
 	public static final String SETNOTE = "setNote";
 	public static final String UPDATENOTE = "updateNote";
+	public static final String DELETENOTE = "deleteNote";
 	
 	
 	ServerConnection sc = new ServerConnection();
@@ -80,12 +82,12 @@ public class CalendarDay extends JPanel {
 		noteLbl.setBounds(28, 62, 400, 16);
 		add(noteLbl);
 		
-		updateNote = new JButton("Update note");
-		updateNote.setBounds(145, 150, 117, 29);
-		updateNote.addActionListener(actionController);
-		updateNote.setActionCommand(UPDATENOTE);
-		updateNote.setVisible(false);
-		add(updateNote);
+//		updateNote = new JButton("Update note");
+//		updateNote.setBounds(145, 150, 117, 29);
+//		updateNote.addActionListener(actionController);
+//		updateNote.setActionCommand(UPDATENOTE);
+//		updateNote.setVisible(false);
+//		add(updateNote);
 		
 		setNote = new JButton("Set Note");
 		setNote.setBounds(440, 138, 117, 29);
@@ -93,6 +95,12 @@ public class CalendarDay extends JPanel {
 		setNote.setActionCommand(SETNOTE);
 		setNote.setVisible(false);
 		add(setNote);
+		
+		deleteNote = new JButton("Delete note");
+		deleteNote.setBounds(440, 164, 117, 29);
+		deleteNote.addActionListener(actionController);
+		deleteNote.setActionCommand(DELETENOTE);
+		add(deleteNote);
 		
 	}
 	
@@ -134,27 +142,6 @@ public class CalendarDay extends JPanel {
 	public void setTitle(JLabel title) {
 		this.title = title;
 	}
-//	public JLabel getCelsius() {
-//		return title;
-//	}
-
-//	public void setCelsius(JLabel celsius) {
-//		this.celsius = celsius;
-//	}
-//	public JLabel getDesc() {
-//		return desc;
-//	}
-//
-//	public void setDesc(JLabel desc) {
-//		this.desc = desc;
-//	}
-//	public JLabel getDate() {
-//		return date;
-//	}
-//
-//	public void setDate(JLabel date) {
-//		this.date = date;
-//	}
 
 	public JScrollPane getScrollPane() {
 		return scrollPane;
@@ -212,7 +199,4 @@ public class CalendarDay extends JPanel {
 	public void setUpdateNote(JButton updateNote) {
 		this.updateNote = updateNote;
 	}
-
-	
-	
 }
