@@ -122,22 +122,13 @@ public class ActionController implements ActionListener {
 		}
 
 		else if(cmd.equals(CalendarDay.FORECAST)){
-
-			screen.getCalendarDay().removeTable();
-
-
-			String result = cc.getForecast(selectedMonth+1, selectedDay);
+			int selectedYear = screen.getCalendarWeek().START_YEAR;
+			String result = cc.getForecast(selectedMonth+1, selectedDay, selectedYear );
+			
 			Forecast fc = gson.fromJson(result, Forecast.class);
-			screen.getCalendarDay().getTitle().setText("forecast for today");
-			screen.getCalendarDay().getDate().setText(fc.getDate());
-			screen.getCalendarDay().getDate().setVisible(true);
-			screen.getCalendarDay().getCelsius().setText(fc.getCelsius());
-			screen.getCalendarDay().getCelsius().setVisible(true);
-			//					screen.getCalendarDay().getDesc().setText(fc.getDesc());
-			screen.getCalendarDay().getDesc().setVisible(true);
-
-			screen.getCalendarDay().repaint();
+			JOptionPane.showMessageDialog( screen, "Celsius: " + fc.getCelsius() + "\n" + "Description: " + fc.getDesc());
 		}
+
 		else if(cmd.equals(CalendarDay.CREATEEVENT)){
 			screen.show(screen.EVENTPANEL);
 		}
@@ -170,7 +161,7 @@ public class ActionController implements ActionListener {
 		}
 		else if(cmd.equals(EventPanel.DELETEEVENTSUBMIT)){
 
-			String eventIdString = JOptionPane.showInputDialog(null, "Insert DEl-EventID", null);
+			String eventIdString = JOptionPane.showInputDialog(null, "Insert EventID", null);
 			cc.deleteEvent(Integer.parseInt(eventIdString));
 
 			refreshEvents();

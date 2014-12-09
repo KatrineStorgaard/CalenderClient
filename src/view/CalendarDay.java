@@ -16,9 +16,6 @@ import logic.ActionController;
 public class CalendarDay extends JPanel {
 	
 	private JLabel title;
-	private JLabel celsius;
-	private JLabel date;
-	private JLabel desc;
 	private JButton back;
 	private JScrollPane scrollPane;
 	private JTable resultTable;
@@ -49,21 +46,6 @@ public class CalendarDay extends JPanel {
 		title = new JLabel("title");
 		title.setBounds(168, 6, 139, 16);
 		add(title);
-		
-		date = new JLabel ("date");
-		date.setBounds(170, 82, 144, 20);
-		date.setVisible(false);
-		add(date);
-		
-		celsius = new JLabel ("celsius");
-		celsius.setBounds(168, 96, 146, 22);
-		celsius.setVisible(false);
-		add(celsius);
-		
-		desc = new JLabel ("desc");
-		desc.setBounds(168, 114, 148, 24);
-		desc.setVisible(false);
-		add(desc);
 		
 		back = new JButton("Back");
 		back.setBounds(168, 176, 75, 29);
@@ -152,27 +134,27 @@ public class CalendarDay extends JPanel {
 	public void setTitle(JLabel title) {
 		this.title = title;
 	}
-	public JLabel getCelsius() {
-		return title;
-	}
+//	public JLabel getCelsius() {
+//		return title;
+//	}
 
-	public void setCelsius(JLabel celsius) {
-		this.celsius = celsius;
-	}
-	public JLabel getDesc() {
-		return desc;
-	}
-
-	public void setDesc(JLabel desc) {
-		this.desc = desc;
-	}
-	public JLabel getDate() {
-		return date;
-	}
-
-	public void setDate(JLabel date) {
-		this.date = date;
-	}
+//	public void setCelsius(JLabel celsius) {
+//		this.celsius = celsius;
+//	}
+//	public JLabel getDesc() {
+//		return desc;
+//	}
+//
+//	public void setDesc(JLabel desc) {
+//		this.desc = desc;
+//	}
+//	public JLabel getDate() {
+//		return date;
+//	}
+//
+//	public void setDate(JLabel date) {
+//		this.date = date;
+//	}
 
 	public JScrollPane getScrollPane() {
 		return scrollPane;

@@ -52,9 +52,9 @@ public class ClientController {
 		return ot.getEvents(userId);
 	}
 	
-	public String getForecast(int month, int day){
+	public String getForecast(int month, int day, int year){
 		
-		return ot.getForecast(month, day);
+		return ot.getForecast(month, day, year);
 	}
 	
 	public String getNote(int id){

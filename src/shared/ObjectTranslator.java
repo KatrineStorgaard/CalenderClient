@@ -75,7 +75,7 @@ public class ObjectTranslator {
 		return sc.connect(gsonString);
 	}
 	
-	public String getForecast(int month, int day){
+	public String getForecast(int month, int day, int year){
 		
 		sim.setOverallID("getForecast");
 		sim.setYear(2014);
